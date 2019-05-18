@@ -12,15 +12,14 @@
 
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
 
-        <el-tooltip content="Global Size" effect="dark" placement="bottom">
-          <size-select id="size-select" class="right-menu-item hover-effect" />
-        </el-tooltip>
-
       </template>
 
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+          <div style="text-align: center">
+            <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+            <span style="display: block;font-size: 12px;line-height: 12px;margin-top: -25px;">{{ name }}</span>
+          </div>
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
@@ -51,7 +50,6 @@ import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
-import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
 
 export default {
@@ -60,13 +58,13 @@ export default {
     Hamburger,
     ErrorLog,
     Screenfull,
-    SizeSelect,
     Search
   },
   computed: {
     ...mapGetters([
       'sidebar',
       'avatar',
+      'name',
       'device'
     ])
   },

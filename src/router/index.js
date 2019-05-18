@@ -79,7 +79,7 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        meta: { title: '首页', icon: 'dashboard', affix: true }
       }
     ]
   },
@@ -91,7 +91,23 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/documentation/index'),
         name: 'Documentation',
-        meta: { title: 'Documentation', icon: 'documentation', affix: true }
+        meta: { title: '文档', icon: 'documentation' }
+      }
+    ]
+  },
+  {
+    path: '/usermanage',
+    component: Layout,
+    redirect: '/usermanage/adminuser',
+    name: 'UserManage',
+    alwaysShow: 'true',
+    meta: { title: '用户管理', icon: 'user', roles: ['admin'] },
+    children: [
+      {
+        path: 'adminuser',
+        name: 'AdminUser',
+        component: () => import('@/views/adminuser/index'),
+        meta: { title: '管理员', icon: 'user', roles: ['admin'] }
       }
     ]
   },

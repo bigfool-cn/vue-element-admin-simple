@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'hidden':hidden}" class="pagination-container">
+  <div :class="{'hidden':hidden}" class="pagination-container" style=" float: right;padding-top: 10px;">
     <el-pagination
       :background="background"
       :current-page.sync="currentPage"
