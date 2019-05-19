@@ -22,3 +22,19 @@ export function getAdminUsers(page, row) {
     params: { page: page, row: row }
   })
 }
+
+export function createAdminUser(data) {
+  return request({
+    url: '/user/create-adminuser',
+    method: 'post',
+    data
+  })
+}
+
+export function updateAdminUserActive(data) {
+  return request({
+    url: '/user/update-adminuser-active',
+    method: 'post',
+    data
+  })
+}

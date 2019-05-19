@@ -108,6 +108,13 @@ export const constantRoutes = [
         name: 'AdminUser',
         component: () => import('@/views/adminuser/index'),
         meta: { title: '管理员', icon: 'user', roles: ['admin'] }
+      },
+      {
+        path: 'adminuser/add',
+        name: 'AdminUser-Add',
+        component: () => import('@/views/adminuser/add'),
+        meta: { title: '管理员--新增', icon: 'user', roles: ['admin'] },
+        hidden: true
       }
     ]
   },
