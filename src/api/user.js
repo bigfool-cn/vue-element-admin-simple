@@ -38,3 +38,11 @@ export function updateAdminUserActive(data) {
     data
   })
 }
+
+export function updateAdminUserPassword(data) {
+  return request({
+    url: '/user/update-adminuser-password',
+    method: 'post',
+    data
+  })
+}
