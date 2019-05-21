@@ -155,7 +155,7 @@ export const asyncRoutes = [
   {
     path: '/system',
     component: Layout,
-    redirect: '/system/adminu-router',
+    redirect: 'noRedirect',
     name: 'System',
     alwaysShow: 'true',
     meta: { title: '系统管理', icon: 'system', roles: ['admin'] },
@@ -165,6 +165,13 @@ export const asyncRoutes = [
         name: 'AdminRouter',
         component: () => import('@/views/system/admin-router'),
         meta: { title: '路由管理', icon: 'router', roles: ['admin'] }
+      },
+      {
+        path: 'adminu-router-add',
+        name: 'AdminRouter-Add',
+        hidden: 'true',
+        component: () => import('@/views/system/admin-router-add'),
+        meta: { title: '新增路由', icon: 'router', roles: ['admin'] }
       }
     ]
   },

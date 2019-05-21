@@ -34,4 +34,7 @@ export default {
   .form-content{
     padding: 20px;
   }
+  .el-select--medium{
+    width: 100%;
+  }
 </style>

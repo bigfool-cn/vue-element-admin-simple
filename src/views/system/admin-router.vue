@@ -86,7 +86,7 @@ export default {
       //
     },
     handleCreate() {
-      this.$router.push({ name: 'AdminUser-Add' })
+      this.$router.push({ name: 'AdminRouter-Add' })
     }
   }
 }
