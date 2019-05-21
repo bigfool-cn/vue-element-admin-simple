@@ -96,29 +96,6 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/usermanage',
-    component: Layout,
-    redirect: '/usermanage/adminuser',
-    name: 'UserManage',
-    alwaysShow: 'true',
-    meta: { title: '用户管理', icon: 'user', roles: ['admin'] },
-    children: [
-      {
-        path: 'adminuser',
-        name: 'AdminUser',
-        component: () => import('@/views/adminuser/index'),
-        meta: { title: '管理员', icon: 'user', roles: ['admin'] }
-      },
-      {
-        path: 'adminuser/add',
-        name: 'AdminUser-Add',
-        component: () => import('@/views/adminuser/add'),
-        meta: { title: '管理员--新增', icon: 'user', roles: ['admin'] },
-        hidden: true
-      }
-    ]
-  },
-  {
     path: '/guide',
     component: Layout,
     redirect: '/guide/index',
@@ -152,6 +129,45 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
+  {
+    path: '/usermanage',
+    component: Layout,
+    redirect: '/usermanage/adminuser',
+    name: 'UserManage',
+    alwaysShow: 'true',
+    meta: { title: '用户管理', icon: 'user', roles: ['admin'] },
+    children: [
+      {
+        path: 'adminuser',
+        name: 'AdminUser',
+        component: () => import('@/views/adminuser/index'),
+        meta: { title: '管理员', icon: 'user', roles: ['admin'] }
+      },
+      {
+        path: 'adminuser/add',
+        name: 'AdminUser-Add',
+        component: () => import('@/views/adminuser/add'),
+        meta: { title: '管理员--新增', icon: 'user', roles: ['admin'] },
+        hidden: true
+      }
+    ]
+  },
+  {
+    path: '/system',
+    component: Layout,
+    redirect: '/system/adminu-router',
+    name: 'System',
+    alwaysShow: 'true',
+    meta: { title: '系统管理', icon: 'system', roles: ['admin'] },
+    children: [
+      {
+        path: 'adminu-router',
+        name: 'AdminRouter',
+        component: () => import('@/views/system/admin-router'),
+        meta: { title: '路由管理', icon: 'router', roles: ['admin'] }
+      }
+    ]
+  },
   {
     path: '/permission',
     component: Layout,
