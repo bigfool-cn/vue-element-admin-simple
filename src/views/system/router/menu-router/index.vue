@@ -111,7 +111,7 @@ const dataRoutes = [
 ]
 let id = 1000
 export default {
-  name: 'AdminRouter',
+  name: 'MenuRouter',
   components: { JsonEditor },
   data() {
     return {
