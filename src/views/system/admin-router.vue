@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <el-container style="height: 100%; width: 100%; border: 1px solid #eee">
-      <el-aside width="30%" style="background-color: white;border-right: 1px solid #eee">
+      <el-aside style="background-color: white;border-right: 1px solid #eee;margin-bottom: 0px" width="20%">
         <el-tree :data="data" :props="defaultProps" node-key="id" :default-expanded-keys="keys" @node-click="handleNodeClick" />
         <div style="padding-top: 30px;">
           <el-button type="primary" size="mini" @click="append()">新增</el-button>
@@ -9,7 +9,7 @@
           <el-button v-show="showSave" type="primary" size="mini">保存</el-button>
         </div>
       </el-aside>
-      <el-aside width="70%" style="background-color: white">
+      <el-aside style="background-color: white;margin-bottom: 0px" width="80%">
         <json-editor ref="jsonEditor" v-model="value" />
       </el-aside>
     </el-container>
@@ -135,19 +135,20 @@ export default {
       console.log(nodeData)
     },
     append() {
-      const newChild = { id: id++, label: 'testtest', children: [] }
-      this.keys = [this.id]
-      if (!this.nodeData.children) {
-        this.$set(this.nodeData, 'children', [])
+      if (this.id !== 0) {
+        const newChild = { id: id++, label: 'testtest', children: [] }
+        this.keys = [this.id]
+        if (!this.nodeData.children) {
+          this.$set(this.nodeData, 'children', [])
+        }
+        this.nodeData.children.push(newChild)
+      } else {
+        const newRouter = { id: id++, label: 'testtest', children: [] }
+        this.data.push(newRouter)
       }
-      this.nodeData.children.push(newChild)
     },
-
-    remove(node, data) {
-      const parent = node.parent
-      const children = parent.data.children || parent.data
-      const index = children.findIndex(d => d.id === data.id)
-      children.splice(index, 1)
+    remove() {
+      console.log(this.id)
     }
   }
 }

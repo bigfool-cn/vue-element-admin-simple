@@ -1,5 +1,5 @@
 <template>
-  <div class="json-editor" style="width: 100%">
+  <div class="json-editor" style="width: 100%;">
     <textarea ref="textarea" />
   </div>
 </template>
