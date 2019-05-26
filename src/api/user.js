@@ -15,7 +15,7 @@ export function getInfo() {
   })
 }
 
-export function getAdminUsers(page, row) {
+export function getAdminUserList(page, row) {
   return request({
     url: '/user/adminuser-list',
     method: 'get',

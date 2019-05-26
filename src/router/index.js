@@ -107,14 +107,14 @@ export const asyncRoutes = [
     meta: { title: '用户管理', icon: 'user', roles: ['admin'] },
     children: [
       {
-        path: 'adminuser',
+        path: '/usermanage/adminuser',
         name: 'AdminUser',
         component: () => import('@/views/adminuser/index'),
         meta: { title: '管理员', icon: 'user', roles: ['admin'] }
       },
       {
         path: 'adminuser/add',
-        name: 'AdminUser-Add',
+        name: 'AdminUserAdd',
         component: () => import('@/views/adminuser/add'),
         meta: { title: '管理员--新增', icon: 'user', roles: ['admin'] },
         hidden: true
@@ -134,6 +134,7 @@ export const asyncRoutes = [
         name: 'Router',
         component: () => import('@/views/system/router'),
         alwaysShow: 'true',
+        redirect: 'noRedirect',
         meta: { title: '路由管理', roles: ['admin'] },
         children: [
           {
@@ -149,6 +150,26 @@ export const asyncRoutes = [
             meta: { title: '按钮路由', roles: ['admin'] }
           }
         ]
+      },
+      {
+        path: '/system/router/button-router/add',
+        name: 'ButtonRouterAdd',
+        hidden: true,
+        component: () => import('@/views/system/router/button-router/add'),
+        meta: { title: '按钮路由-新增', roles: ['admin'] }
+      },
+      {
+        path: '/system/router/button-router/update',
+        name: 'ButtonRouterUpdate',
+        hidden: true,
+        component: () => import('@/views/system/router/button-router/edit'),
+        meta: { title: '按钮路由-修改', roles: ['admin'] }
+      },
+      {
+        path: 'button',
+        name: 'Button',
+        component: () => import('@/views/system/button'),
+        meta: { title: '按钮管理', roles: ['admin'] }
       }
     ]
   },

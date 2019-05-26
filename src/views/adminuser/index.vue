@@ -13,8 +13,9 @@
       </el-button>
     </div>
     <el-table :data="adminUserData" border style="width: 100%">
+      <el-table-column type="index" width="50" />
       <el-table-column prop="username" label="用户名" width="180" />
-      <el-table-column prop="is_active" label="激活状态" width="180">
+      <el-table-column prop="is_active" label="激活状态" width="100">
         <template slot-scope="{row}">
           <el-tag
             :type="row.is_active | activeFilter"
@@ -25,12 +26,12 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="create_time" label="注册时间" />
-      <el-table-column prop="update_time" label="更新时间" />
-      <el-table-column prop="login_time" label="最后登录时间" />
-      <el-table-column fixed="right" label="操作" width="100">
+      <el-table-column prop="create_time" label="注册时间" width="180" />
+      <el-table-column prop="update_time" label="更新时间" width="180" />
+      <el-table-column prop="login_time" label="最后登录时间" width="180" />
+      <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="handleClick(scope.row.admin_user_id)">修改密码</el-button>
+          <el-button type="primary" size="small" @click="handleClick(scope.row.admin_user_id)">修改密码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -59,7 +60,7 @@
 
 <script>
 import { Message } from 'element-ui'
-import { getAdminUsers, updateAdminUserActive, updateAdminUserPassword } from '../../api/user'
+import { getAdminUserList, updateAdminUserActive, updateAdminUserPassword } from '@/api/user'
 import Pagination from '@/components/Paginations'
 export default {
   name: 'Index',
@@ -127,40 +128,33 @@ export default {
   },
   created() {
     const page = 1
-    getAdminUsers(page, this.pages.per_page).then(res => {
-      this.pages = res.data.pages
-      this.listQuery.page = this.pages.current_page
-      this.listQuery.row = this.pages.per_page
-      this.adminUserData = res.data.admin_users
-    })
+    this.initData(page, this.pages.per_page)
   },
   methods: {
+    initData(page, row) {
+      getAdminUserList(page, row).then(res => {
+        this.pages = res.data.pages
+        this.listQuery.page = this.pages.current_page
+        this.listQuery.row = this.pages.per_page
+        this.adminUserData = res.data.admin_users
+      })
+    },
     // 点击修改密码
     handleClick(id) {
       this.adminUserId = id
       this.dialogVisible = true
     },
     handleSizeChange(val) {
-      getAdminUsers(this.pages.current_page, val).then(res => {
-        this.pages = res.data.pages
-        this.listQuery.page = this.pages.current_page
-        this.listQuery.row = this.pages.per_page
-        this.adminUserData = res.data.admin_users
-      })
+      this.initData(this.pages.current_page, val)
     },
     handleCurrentChange(val) {
-      getAdminUsers(val, this.pages.per_page).then(res => {
-        this.pages = res.data.pages
-        this.listQuery.page = this.pages.current_page
-        this.listQuery.row = this.pages.per_page
-        this.adminUserData = res.data.admin_users
-      })
+      this.initData(val, this.pages.per_page)
     },
     handleFilter() {
       //
     },
     handleCreate() {
-      this.$router.push({ name: 'AdminUser-Add' })
+      this.$router.push({ name: 'AdminUserAdd' })
     },
     // 导出数据
     handleDownload() {
