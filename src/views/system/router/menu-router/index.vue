@@ -122,7 +122,7 @@ export default {
           this.isCreate = false
         })
       } else {
-        const text = '确定要删除' + this.menuRouterForm.title + '吗?'
+        const text = '确定要删除[' + this.menuRouterForm.title + ']吗?'
         this.$confirm(text, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
