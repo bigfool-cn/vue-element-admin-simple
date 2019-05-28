@@ -6,6 +6,10 @@
           :data="treeRouter"
           :props="defaultProps"
           node-key="id"
+          highlight-current
+          draggable
+          :allow-drop="allowDrop"
+          @node-drop="sort"
           @node-click="handleNodeClick"
         />
         <div style="padding-top: 30px;">
@@ -162,6 +166,28 @@ export default {
         })
       }
       this.loading = false
+    },
+    // 同级拖拽
+    allowDrop(draggingNode, dropNode, type) {
+      console.log(dropNode)
+      if (draggingNode.level === dropNode.level) {
+        return type === 'prev' || type === 'next'
+      } else {
+        // 不同级进行处理
+        return false
+      }
+    },
+    sort(draggingNode, dropNode, type, event) {
+      /* console.log('排序')
+      console.log(dropNode)   //dropNode.parent.childNodes =[] 拖拽之后的重新组合的数组 */
+      const sortTree = []
+      for (const item of dropNode.parent.childNodes) {
+        sortTree.push(item.data.id)
+      }
+      this.updateOrderMe(sortTree)
+    },
+    updateOrderMe(sortTree) {
+      console.log(sortTree)
     }
   },
   destroy() {
@@ -170,6 +196,21 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+ /*高亮*/
+el-tree-node__content {
+  font-size: 14px;
+  height: 40px;
+  font-weight: 400;
+}
+.el-tree-node__label:hover {
+  color: #0593D3;
+}
+.el-tree-node:focus > .el-tree-node__content {
+  color: #0593D3 ;
+}
+ .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content{
+  color: red ;
+  background-color: transparent;
+}
 </style>

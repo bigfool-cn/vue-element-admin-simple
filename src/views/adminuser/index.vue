@@ -13,9 +13,9 @@
       </el-button>
     </div>
     <el-table :data="adminUserData" border style="width: 100%">
-      <el-table-column type="index" width="50" />
-      <el-table-column prop="username" label="用户名" width="180" />
-      <el-table-column prop="is_active" label="激活状态" width="100">
+      <el-table-column align="center" type="index" width="50" />
+      <el-table-column align="center" prop="username" label="用户名" width="150" />
+      <el-table-column align="center" prop="is_active" label="激活状态" width="100">
         <template slot-scope="{row}">
           <el-tag
             :type="row.is_active | activeFilter"
@@ -26,10 +26,10 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="create_time" label="注册时间" width="180" />
-      <el-table-column prop="update_time" label="更新时间" width="180" />
-      <el-table-column prop="login_time" label="最后登录时间" width="180" />
-      <el-table-column fixed="right" label="操作">
+      <el-table-column align="center" prop="create_time" label="注册时间" width="180" />
+      <el-table-column align="center" prop="update_time" label="更新时间" width="180" />
+      <el-table-column align="center" prop="login_time" label="最后登录时间" width="180" />
+      <el-table-column align="center" label="操作">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="handleClick(scope.row.admin_user_id)">修改密码</el-button>
         </template>

@@ -10,16 +10,16 @@
       </el-button>
     </div>
     <el-table :data="adminRouterButtonData" border style="width: 100%">
-      <el-table-column type="index" width="50" />
-      <el-table-column prop="title" label="按钮名称" width="180" />
-      <el-table-column prop="param" label="路由配置" width="100">
+      <el-table-column align="center" type="index" width="50" />
+      <el-table-column align="center" prop="title" label="按钮名称" width="200" />
+      <el-table-column align="center" prop="param" label="路由配置" width="120">
         <template slot-scope="{row}">
           <el-button type="success" size="mini" @click="handleParam(row.param, row.title)">查看</el-button>
         </template>
       </el-table-column>
-      <el-table-column prop="create_time" label="注册时间" width="180" />
-      <el-table-column prop="update_time" label="更新时间" width="180" />
-      <el-table-column fixed="right" label="操作">
+      <el-table-column align="center" prop="create_time" label="注册时间" width="200" />
+      <el-table-column align="center" prop="update_time" label="更新时间" width="200" />
+      <el-table-column align="center" label="操作">
         <template slot-scope="scope">
           <el-button v-loading="loading" type="danger" size="mini" @click="handleDelete(scope.row.admin_router_id)">删除</el-button>
           <el-button type="primary" size="mini" @click="handleUpdate(scope.row.admin_router_id)">修改</el-button>

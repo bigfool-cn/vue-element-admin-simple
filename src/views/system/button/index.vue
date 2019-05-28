@@ -10,19 +10,19 @@
       </el-button>
     </div>
     <el-table :data="buttonData" border style="width: 100%">
-      <el-table-column type="index" width="50" />
-      <el-table-column prop="title" label="按钮名称" width="200" />
-      <el-table-column prop="key" label="唯一标识" width="200" />
-      <el-table-column prop="is_enable" label="是否可用" width="80">
+      <el-table-column align="center" type="index" width="50" />
+      <el-table-column align="center" prop="title" label="按钮名称" width="180" />
+      <el-table-column align="center" prop="key" label="唯一标识" width="180" />
+      <el-table-column align="center" prop="is_enable" label="是否可用" width="80">
         <template slot-scope="{row}">
           <el-tag :type="row.is_enable | enableFilter">
             {{ row.is_enable ? '可用' : '不可用' }}
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="create_time" label="创建时间" width="180" />
-      <el-table-column prop="update_time" label="更新时间" width="180" />
-      <el-table-column fixed="right" label="操作">
+      <el-table-column align="center" prop="create_time" label="创建时间" width="180" />
+      <el-table-column align="center" prop="update_time" label="更新时间" width="180" />
+      <el-table-column align="center" label="操作">
         <template slot-scope="scope">
           <el-button type="danger" size="mini" @click="deleteButton(scope.row.button_id)">删除</el-button>
           <el-button type="primary" size="mini" @click="updateButton(scope.row)">修改</el-button>
