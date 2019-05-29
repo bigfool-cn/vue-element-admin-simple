@@ -29,7 +29,7 @@
 <script>
 import JsonEditor from '@/components/JsonEditor'
 import { Message } from 'element-ui'
-import { getAdminRouterMenuTree, createAdminRouter, updateAdminRouter, getAdminRouter, deleteAdminRouter } from '@/api/admin-router'
+import { getAdminRouterMenuTree, createAdminRouter, updateAdminRouter, getAdminRouter, deleteAdminRouter, updateAdminRouterSort } from '@/api/admin-router'
 const parentRouter = '{"path": "/system","component": "Layout","redirect": "noRedirect","name": "System","hihhen": "false","alwaysShow": "true","meta": {"title": "系统管理","icon": "system"}}'
 const childrenRouter = '{"path": "adminu-router","name": "AdminRouter","component": "/system/admin-router","hihhen": "false","alwaysShow": "true","meta": {"title": "路由管理","icon": "router"}}'
 let id = 10000
@@ -177,17 +177,13 @@ export default {
         return false
       }
     },
+    // 排序
     sort(draggingNode, dropNode, type, event) {
-      /* console.log('排序')
-      console.log(dropNode)   //dropNode.parent.childNodes =[] 拖拽之后的重新组合的数组 */
       const sortTree = []
       for (const item of dropNode.parent.childNodes) {
         sortTree.push(item.data.id)
       }
-      this.updateOrderMe(sortTree)
-    },
-    updateOrderMe(sortTree) {
-      console.log(sortTree)
+      updateAdminRouterSort({ sort: sortTree }).then(res => {})
     }
   },
   destroy() {

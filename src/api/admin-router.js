@@ -45,3 +45,11 @@ export function getAdminRouterButtonList(page, row) {
     params: { page: page, row: row }
   })
 }
+
+export function updateAdminRouterSort(data) {
+  return request({
+    url: '/system/update-router-sort',
+    method: 'post',
+    data
+  })
+}

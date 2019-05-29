@@ -170,6 +170,22 @@ export const asyncRoutes = [
         name: 'Button',
         component: () => import('@/views/system/button'),
         meta: { title: '按钮管理', roles: ['admin'] }
+      },
+      {
+        path: 'auth',
+        name: 'Auth',
+        component: () => import('@/views/system/auth'),
+        alwaysShow: 'true',
+        redirect: 'noRedirect',
+        meta: { title: '权限管理', roles: ['admin'] },
+        children: [
+          {
+            path: 'role',
+            name: 'Role',
+            component: () => import('@/views/system/auth/role'),
+            meta: { title: '角色管理', roles: ['admin'] }
+          }
+        ]
       }
     ]
   },

@@ -63,7 +63,7 @@ import { Message } from 'element-ui'
 import { getAdminUserList, updateAdminUserActive, updateAdminUserPassword } from '@/api/user'
 import Pagination from '@/components/Paginations'
 export default {
-  name: 'Index',
+  name: 'AdminUser',
   components: {
     Pagination
   },
