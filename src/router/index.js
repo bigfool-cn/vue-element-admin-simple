@@ -99,71 +99,18 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
-    path: '/usermanage',
-    component: Layout,
-    redirect: '/usermanage/adminuser',
-    name: 'UserManage',
-    alwaysShow: 'true',
-    meta: { title: '用户管理', icon: 'user', roles: ['admin'] },
-    children: [
-      {
-        path: '/usermanage/adminuser',
-        name: 'AdminUser',
-        component: () => import('@/views/adminuser/index'),
-        meta: { title: '管理员', icon: 'user', roles: ['admin'] }
-      },
-      {
-        path: 'adminuser/add',
-        name: 'AdminUserAdd',
-        component: () => import('@/views/adminuser/add'),
-        meta: { title: '管理员--新增', icon: 'user', roles: ['admin'] },
-        hidden: true
-      }
-    ]
-  },
-  {
     path: '/system',
     component: Layout,
     redirect: 'noRedirect',
     name: 'System',
-    alwaysShow: 'true',
+    alwaysShow: true,
     meta: { title: '系统管理', icon: 'system', roles: ['admin'] },
     children: [
       {
         path: 'router',
         name: 'Router',
         component: () => import('@/views/system/router'),
-        alwaysShow: 'true',
-        redirect: 'noRedirect',
-        meta: { title: '路由管理', roles: ['admin'] },
-        children: [
-          {
-            path: 'menu-router',
-            name: 'MenuRouter',
-            component: () => import('@/views/system/router/menu-router'),
-            meta: { title: '菜单路由', roles: ['admin'] }
-          },
-          {
-            path: 'button-router',
-            name: 'ButtonRouter',
-            component: () => import('@/views/system/router/button-router'),
-            meta: { title: '按钮路由', roles: ['admin'] }
-          }
-        ]
-      },
-      {
-        path: '/system/router/button-router/add',
-        name: 'ButtonRouterAdd',
-        hidden: true,
-        component: () => import('@/views/system/router/button-router/add'),
-        meta: { title: '按钮路由-新增', roles: ['admin'] }
-      },
-      {
-        path: '/system/router/button-router/update',
-        name: 'ButtonRouterUpdate',
-        hidden: true,
-        component: () => import('@/views/system/router/button-router/edit'),
-        meta: { title: '按钮路由-修改', roles: ['admin'] }
+        meta: { title: '路由管理', roles: ['admin'] }
       },
       {
         path: 'button',
@@ -172,18 +119,54 @@ export const asyncRoutes = [
         meta: { title: '按钮管理', roles: ['admin'] }
       },
       {
-        path: 'auth',
-        name: 'Auth',
-        component: () => import('@/views/system/auth'),
-        alwaysShow: 'true',
+        path: '/system/user-manage',
+        component: () => import('@/views/system/user-manage'),
+        redirect: 'noRedirect',
+        name: 'UserManage',
+        alwaysShow: true,
+        meta: { title: '用户管理', roles: ['admin'] },
+        children: [
+          {
+            path: 'adminuser',
+            name: 'AdminUser',
+            component: () => import('@/views/system/user-manage/adminuser'),
+            meta: { title: '管理员', roles: ['admin'] }
+          },
+          {
+            path: 'adminuser/add',
+            name: 'AdminUserAdd',
+            component: () => import('@/views/system//user-manage/adminuser/add'),
+            hidden: true,
+            meta: { title: '管理员--新增', roles: ['admin'] }
+          }
+        ]
+      },
+      {
+        path: 'auth-manage',
+        name: 'AuthManage',
+        component: () => import('@/views/system/auth-manage'),
+        alwaysShow: true,
         redirect: 'noRedirect',
         meta: { title: '权限管理', roles: ['admin'] },
         children: [
           {
             path: 'role',
             name: 'Role',
-            component: () => import('@/views/system/auth/role'),
+            component: () => import('@/views/system/auth-manage/role'),
             meta: { title: '角色管理', roles: ['admin'] }
+          },
+          {
+            path: 'role/add',
+            name: 'RoleAdd',
+            component: () => import('@/views/system/auth-manage/role/add'),
+            hidden: true,
+            meta: { title: '角色管理--新增', roles: ['admin'] }
+          },
+          {
+            path: 'auth',
+            name: 'Auth',
+            component: () => import('@/views/system/auth-manage/auth'),
+            meta: { title: '权限列表', roles: ['admin'] }
           }
         ]
       }

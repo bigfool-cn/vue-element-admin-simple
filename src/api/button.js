@@ -44,3 +44,12 @@ export function updateSystemButtonEnable(data) {
     data
   })
 }
+
+// 全部按钮
+export function getSystemButtonAll(is_enable) {
+  return request({
+    url: '/system/button-all',
+    method: 'get',
+    param: { is_enable: is_enable }
+  })
+}

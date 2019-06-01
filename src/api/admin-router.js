@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function getAdminRouterMenuTree() {
+export function getAdminRouterTree() {
   return request({
-    url: '/system/menu-router-tree',
+    url: '/system/router-tree',
     method: 'get'
   })
 }
@@ -35,14 +35,6 @@ export function getAdminRouter(id) {
     url: '/system/get-admin-router',
     method: 'get',
     params: { id: id }
-  })
-}
-
-export function getAdminRouterButtonList(page, row) {
-  return request({
-    url: '/system/button-router-list',
-    method: 'get',
-    params: { page: page, row: row }
   })
 }
 

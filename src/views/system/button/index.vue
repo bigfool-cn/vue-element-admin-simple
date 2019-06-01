@@ -2,7 +2,7 @@
   <div class="content">
     <div class="filter-container">
       <el-input v-model="listQuery.title" placeholder="按钮名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
+      <el-button class="filter-item" type="success" icon="el-icon-search" @click="handleFilter">
         查询
       </el-button>
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
@@ -12,7 +12,7 @@
     <el-table :data="buttonData" border style="width: 100%">
       <el-table-column align="center" type="index" width="50" />
       <el-table-column align="center" prop="title" label="按钮名称" width="180" />
-      <el-table-column align="center" prop="key" label="唯一标识" width="180" />
+      <el-table-column align="center" prop="key" label="唯一标识" width="200" />
       <el-table-column align="center" prop="is_enable" label="是否可用" width="80">
         <template slot-scope="{row}">
           <el-tag :type="row.is_enable | enableFilter">
@@ -20,13 +20,13 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="create_time" label="创建时间" width="180" />
-      <el-table-column align="center" prop="update_time" label="更新时间" width="180" />
+      <el-table-column align="center" prop="create_time" label="创建时间" width="170" />
+      <el-table-column align="center" prop="update_time" label="更新时间" width="170" />
       <el-table-column align="center" label="操作">
         <template slot-scope="scope">
           <el-button type="danger" size="mini" @click="deleteButton(scope.row.button_id)">删除</el-button>
           <el-button type="primary" size="mini" @click="updateButton(scope.row)">修改</el-button>
-          <el-button type="primary" size="mini" @click="changeEnable(scope.row.button_id, scope.row.is_enable)">{{ scope.row.is_enable ? '更改为不可用' : '更改为可用' }}</el-button>
+          <el-button type="warning" size="mini" @click="changeEnable(scope.row.button_id, scope.row.is_enable)">{{ scope.row.is_enable ? '不可用' : '可用' }}</el-button>
         </template>
       </el-table-column>
     </el-table>
