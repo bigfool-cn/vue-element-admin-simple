@@ -1,8 +1,46 @@
 import request from '@/utils/request'
 
-export function getSystemButton() {
+// 角色列表
+export function getRoleList(page, row) {
   return request({
-    url: '/system/router-tree',
-    method: 'get'
+    url: '/system/role/role-list',
+    method: 'get',
+    params: { page: page, row: row }
+  })
+}
+
+// 新增角色
+export function createRole(data) {
+  return request({
+    url: '/system/role/create-role',
+    method: 'post',
+    data
+  })
+}
+
+// 修改角色
+export function updateRole(data) {
+  return request({
+    url: '/system/role/update-role',
+    method: 'post',
+    data
+  })
+}
+
+// 删除角色
+export function deleteRole(data) {
+  return request({
+    url: '/system/role/delete-role',
+    method: 'post',
+    data
+  })
+}
+
+// 删除角色
+export function updateRoleEnable(data) {
+  return request({
+    url: '/system/role/update-role-enable',
+    method: 'post',
+    data
   })
 }

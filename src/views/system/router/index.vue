@@ -49,6 +49,7 @@ export default {
         title: '',
         param: {}
       },
+      keys: [],
       treeRouter: [],
       defaultProps: {
         children: 'children',
@@ -63,7 +64,7 @@ export default {
     window.addEventListener('resize', this.getHeight)
     this.getHeight()
     getAdminRouterTree().then(res => {
-      this.treeRouter = res.data
+      this.treeRouter = res.data.routers_tree
     })
   },
   methods: {
@@ -122,7 +123,7 @@ export default {
       if (this.id === id - 1 || this.id === 0) {
         // 新增未保存时删除
         getAdminRouterTree().then(res => {
-          this.treeRouter = res.data
+          this.treeRouter = res.data.routers_tree
           this.isCreate = false
           this.id = 0
         })
@@ -153,7 +154,7 @@ export default {
         if (this.routerForm.parent_id !== null) {
           createAdminRouter(this.routerForm).then(res => {
             Message.success(res.msg)
-            this.treeRouter = res.data.tree_routers
+            this.treeRouter = res.data.routers_tree
             this.keys = [res.data.admin_router_id]
             this.isCreate = false
           })
@@ -163,7 +164,7 @@ export default {
         this.routerForm.admin_router_id = this.id
         updateAdminRouter(this.routerForm).then(res => {
           Message.success(res.msg)
-          this.treeRouter = res.data
+          this.treeRouter = res.data.routers_tree
           this.keys = [this.id]
         })
       }
