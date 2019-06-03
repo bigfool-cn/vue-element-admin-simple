@@ -2,6 +2,12 @@
   <div class="content">
     <div class="filter-container">
       <el-input v-model="listQuery.title" placeholder="按钮名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-select v-model="listQuery.is_enable" placeholder="是否可用" style="width: 200px;" class="filter-item">
+        <el-option label="全部" value="" />
+        <el-option label="是" value="1" />
+        <el-option label="否" value="0" />
+      </el-select>
+      <el-date-picker v-model="listQuery.date" class="filter-item" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" />
       <el-button class="filter-item" type="success" icon="el-icon-search" @click="handleFilter">
         查询
       </el-button>
@@ -11,18 +17,18 @@
     </div>
     <el-table :data="buttonData" border style="width: 100%">
       <el-table-column align="center" type="index" width="50" />
-      <el-table-column align="center" prop="title" label="按钮名称" width="180" />
-      <el-table-column align="center" prop="key" label="唯一标识" width="200" />
-      <el-table-column align="center" prop="is_enable" label="是否可用" width="80">
+      <el-table-column align="center" prop="title" label="按钮名称" />
+      <el-table-column align="center" prop="key" label="唯一标识" />
+      <el-table-column align="center" prop="is_enable" label="是否可用" width="100">
         <template slot-scope="{row}">
           <el-tag :type="row.is_enable | enableFilter">
             {{ row.is_enable ? '可用' : '不可用' }}
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="create_time" label="创建时间" width="170" />
-      <el-table-column align="center" prop="update_time" label="更新时间" width="170" />
-      <el-table-column align="center" label="操作">
+      <el-table-column align="center" prop="create_time" label="创建时间" width="180" />
+      <el-table-column align="center" prop="update_time" label="更新时间" width="180" />
+      <el-table-column align="center" label="操作" width="300px">
         <template slot-scope="scope">
           <el-button type="danger" size="mini" @click="deleteButton(scope.row.button_id)">删除</el-button>
           <el-button type="primary" size="mini" @click="updateButton(scope.row)">修改</el-button>
@@ -67,11 +73,11 @@ export default {
   },
   filters: {
     enableFilter(isEnable) {
-      const aenableMap = {
+      const enableMap = {
         0: 'info',
         1: 'success'
       }
-      return aenableMap[isEnable]
+      return enableMap[isEnable]
     }
   },
   data() {
@@ -84,7 +90,9 @@ export default {
       listQuery: {
         page: 1,
         row: 20,
-        title: ''
+        title: undefined,
+        is_enable: undefined,
+        date: undefined
       },
       dialogVisible: false,
       buttonId: 0,
@@ -127,7 +135,7 @@ export default {
       this.initData(val, this.pages.per_page)
     },
     handleFilter() {
-      //
+      console.log(this.listQuery)
     },
     handleCreate() {
       this.dialogVisible = true
@@ -210,3 +218,6 @@ export default {
   }
 }
 </script>
+<style scoped>
+
+</style>

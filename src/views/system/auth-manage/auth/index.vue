@@ -2,6 +2,12 @@
   <div class="content">
     <div class="filter-container">
       <el-input v-model="listQuery.role_name" placeholder="角色名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-select v-model="listQuery.type" placeholder="权限类型" style="width: 200px;" class="filter-item">
+        <el-option label="全部" value="" />
+        <el-option label="路由" value="路由" />
+        <el-option label="按钮" value="按钮" />
+      </el-select>
+      <el-date-picker v-model="listQuery.date" class="filter-item" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" />
       <el-button class="filter-item" type="success" icon="el-icon-search" @click="handleFilter">
         查询
       </el-button>
@@ -54,7 +60,9 @@ export default {
       listQuery: {
         page: 1,
         row: 20,
-        role_name: ''
+        role_name: undefined,
+        type: undefined,
+        date: undefined
       },
       authsData: []
     }

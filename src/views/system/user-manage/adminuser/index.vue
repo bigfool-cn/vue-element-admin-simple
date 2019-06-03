@@ -2,6 +2,12 @@
   <div class="content">
     <div class="filter-container">
       <el-input v-model="listQuery.username" placeholder="用户名" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-select v-model="listQuery.is_active" placeholder="激活状态" style="width: 200px;" class="filter-item">
+        <el-option label="全部" value="" />
+        <el-option label="已激活" value="1" />
+        <el-option label="未激活" value="0" />
+      </el-select>
+      <el-date-picker v-model="listQuery.date" class="filter-item" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" />
       <el-button class="filter-item" type="success" icon="el-icon-search" @click="handleFilter">
         查询
       </el-button>
@@ -26,10 +32,10 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="create_time" label="注册时间" width="180" />
-      <el-table-column align="center" prop="update_time" label="更新时间" width="180" />
-      <el-table-column align="center" prop="login_time" label="最后登录时间" width="180" />
-      <el-table-column align="center" label="操作">
+      <el-table-column align="center" prop="create_time" label="注册时间" />
+      <el-table-column align="center" prop="update_time" label="更新时间" />
+      <el-table-column align="center" prop="login_time" label="最后登录时间" />
+      <el-table-column align="center" label="操作" width="300px">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="handleClick(scope.row.admin_user_id)">修改密码</el-button>
         </template>
@@ -107,7 +113,9 @@ export default {
       listQuery: {
         page: 1,
         row: 20,
-        username: undefined
+        username: undefined,
+        is_active: undefined,
+        date: undefined
       },
       downloadLoading: false,
       dialogVisible: false,

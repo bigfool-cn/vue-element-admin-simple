@@ -1,6 +1,15 @@
 import request from '@/utils/request'
 
 // 角色列表
+export function getRole(roleId) {
+  return request({
+    url: '/system/role/get-role',
+    method: 'get',
+    params: { role_id: roleId }
+  })
+}
+
+// 角色列表
 export function getRoleList(page, row) {
   return request({
     url: '/system/role/role-list',
@@ -36,7 +45,7 @@ export function deleteRole(data) {
   })
 }
 
-// 删除角色
+// 更新角色可用状态
 export function updateRoleEnable(data) {
   return request({
     url: '/system/role/update-role-enable',

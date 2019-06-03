@@ -163,6 +163,13 @@ export const asyncRoutes = [
             meta: { title: '角色管理--新增', roles: ['admin'] }
           },
           {
+            path: 'role/edit',
+            name: 'RoleEdit',
+            component: () => import('@/views/system/auth-manage/role/edit'),
+            hidden: true,
+            meta: { title: '角色管理-修改', roles: ['admin'] }
+          },
+          {
             path: 'auth',
             name: 'Auth',
             component: () => import('@/views/system/auth-manage/auth'),

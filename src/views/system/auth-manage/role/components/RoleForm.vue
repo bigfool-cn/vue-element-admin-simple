@@ -5,7 +5,7 @@
         <div>
           <el-form ref="roleForm" :model="roleForm" :rules="rules" label-width="80px">
             <el-form-item label="角色名称" prop="role_name">
-              <el-input v-model="roleForm.username" />
+              <el-input v-model="roleForm.role_name" />
             </el-form-item>
             <el-form-item label="角色描述" prop="desc">
               <el-input v-model="roleForm.desc" rows="4" type="textarea" />
@@ -28,6 +28,7 @@
           show-checkbox
           node-key="id"
           :default-expand-all="true"
+          :default-checked-keys="roleForm.routers"
           :props="defaultProps"
           @check-change="getCheckRouters"
         />
@@ -45,9 +46,9 @@
 </template>
 
 <script>
-import { createAdminUser } from '@/api/user'
 import { getSystemButtonAll } from '@/api/button'
 import { getAdminRouterTree } from '@/api/admin-router'
+import { getRole, createRole, updateRole } from '@/api/role'
 import { Message } from 'element-ui'
 export default {
   name: 'RoleForm',
@@ -88,9 +89,36 @@ export default {
       isIndeterminate: true
     }
   },
+  watch: {
+    buttons(newVal, oldVal) {
+      if (newVal.length === this.roleForm.buttons.length) {
+        this.checkAll = true
+        this.isIndeterminate = false
+      }
+    },
+    'roleForm.buttons'(newVal, oldVal) {
+      if (newVal.length === this.buttons.length) {
+        this.checkAll = true
+        this.isIndeterminate = false
+      }
+    }
+  },
   created() {
     window.addEventListener('resize', this.getHeight)
     this.getHeight()
+    if (this.isEdit) {
+      const roleId = this.$route.params.id
+      getRole(roleId).then(res => {
+        this.roleForm = {
+          role_id: res.data.role_id,
+          role_name: res.data.role_name,
+          desc: res.data.desc,
+          is_enable: Boolean(res.data.is_enable),
+          routers: res.data.router_ids,
+          buttons: res.data.button_ids
+        }
+      })
+    }
     getAdminRouterTree().then(res => {
       this.routers = res.data.routers_tree
     })
@@ -105,10 +133,19 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          createAdminUser(this.roleForm).then(res => {
-            Message.success(res.msg)
-            this.reload()
-          })
+          if (this.isEdit) {
+            // 修改
+            updateRole(this.roleForm).then(res => {
+              Message.success(res.msg)
+              this.reload()
+            })
+          } else {
+            // 新增
+            createRole(this.roleForm).then(res => {
+              Message.success(res.msg)
+              this.reload()
+            })
+          }
         } else {
           Message.error('数据验证失败！')
           return false
