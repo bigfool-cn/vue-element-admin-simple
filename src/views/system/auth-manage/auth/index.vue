@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="filter-container">
-      <el-input v-model="listQuery.role_name" placeholder="角色名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.title" placeholder="权限名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-select v-model="listQuery.type" placeholder="权限类型" style="width: 200px;" class="filter-item">
         <el-option label="全部" value="" />
         <el-option label="路由" value="路由" />
@@ -60,7 +60,7 @@ export default {
       listQuery: {
         page: 1,
         row: 20,
-        role_name: undefined,
+        title: undefined,
         type: undefined,
         date: undefined
       },
@@ -68,7 +68,7 @@ export default {
     }
   },
   created() {
-    this.initData(1, 20)
+    this.initData(this.listQuery)
   },
   methods: {
     dataBlock(res) {
@@ -77,19 +77,21 @@ export default {
       this.listQuery.row = this.pages.per_page
       this.authsData = res.data.auths
     },
-    initData(page, row) {
-      getAuthList({ page: page, row: row }).then(res => {
+    initData(params) {
+      getAuthList(params).then(res => {
         this.dataBlock(res)
       })
     },
     handleSizeChange(val) {
-      this.initData(this.pages.current_page, val)
+      this.listQuery.row = val
+      this.initData(this.listQuery)
     },
     handleCurrentChange(val) {
-      this.initData(val, this.pages.per_page)
+      this.listQuery.page = val
+      this.initData(this.listQuery)
     },
     handleFilter() {
-      //
+      this.initData(this.listQuery)
     },
     // 修改
     handleUpdate(id) {

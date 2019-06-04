@@ -135,12 +135,11 @@ export default {
     }
   },
   created() {
-    const page = 1
-    this.initData(page, this.pages.per_page)
+    this.initData(this.listQuery)
   },
   methods: {
-    initData(page, row) {
-      getAdminUserList(page, row).then(res => {
+    initData(params) {
+      getAdminUserList(params).then(res => {
         this.pages = res.data.pages
         this.listQuery.page = this.pages.current_page
         this.listQuery.row = this.pages.per_page
@@ -153,13 +152,15 @@ export default {
       this.dialogVisible = true
     },
     handleSizeChange(val) {
-      this.initData(this.pages.current_page, val)
+      this.listQuery.row = val
+      this.initData(this.listQuery)
     },
     handleCurrentChange(val) {
-      this.initData(val, this.pages.per_page)
+      this.listQuery.page = val
+      this.initData(this.listQuery)
     },
     handleFilter() {
-      //
+      this.initData(this.listQuery)
     },
     handleCreate() {
       this.$router.push({ name: 'AdminUserAdd' })

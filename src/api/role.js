@@ -10,11 +10,11 @@ export function getRole(roleId) {
 }
 
 // 角色列表
-export function getRoleList(page, row) {
+export function getRoleList(params) {
   return request({
     url: '/system/role/role-list',
     method: 'get',
-    params: { page: page, row: row }
+    params: params
   })
 }
 

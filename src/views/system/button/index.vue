@@ -4,8 +4,8 @@
       <el-input v-model="listQuery.title" placeholder="按钮名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-select v-model="listQuery.is_enable" placeholder="是否可用" style="width: 200px;" class="filter-item">
         <el-option label="全部" value="" />
-        <el-option label="是" value="1" />
-        <el-option label="否" value="0" />
+        <el-option label="可用" value="1" />
+        <el-option label="不可用" value="0" />
       </el-select>
       <el-date-picker v-model="listQuery.date" class="filter-item" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" />
       <el-button class="filter-item" type="success" icon="el-icon-search" @click="handleFilter">
@@ -113,8 +113,7 @@ export default {
     }
   },
   created() {
-    const page = 1
-    this.initData(page, this.pages.per_page)
+    this.initData(this.listQuery)
   },
   methods: {
     dataBlock(res) {
@@ -123,19 +122,21 @@ export default {
       this.listQuery.row = this.pages.per_page
       this.buttonData = res.data.system_buttons
     },
-    initData(page, row) {
-      getSystemButtonList(page, row).then(res => {
+    initData(params) {
+      getSystemButtonList(params).then(res => {
         this.dataBlock(res)
       })
     },
     handleSizeChange(val) {
-      this.initData(this.pages.current_page, val)
+      this.listQuery.row = val
+      this.initData(this.listQuery)
     },
     handleCurrentChange(val) {
-      this.initData(val, this.pages.per_page)
+      this.listQuery.page = val
+      this.initData(this.listQuery)
     },
     handleFilter() {
-      console.log(this.listQuery)
+      this.initData(this.listQuery)
     },
     handleCreate() {
       this.dialogVisible = true

@@ -15,11 +15,11 @@ export function getInfo() {
   })
 }
 
-export function getAdminUserList(page, row) {
+export function getAdminUserList(params) {
   return request({
     url: '/user/adminuser-list',
     method: 'get',
-    params: { page: page, row: row }
+    params: params
   })
 }
 

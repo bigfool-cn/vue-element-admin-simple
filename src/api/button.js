@@ -1,11 +1,11 @@
 import request from '@/utils/request'
 
 // 按钮列表
-export function getSystemButtonList(page, row) {
+export function getSystemButtonList(params) {
   return request({
     url: '/system/button-list',
     method: 'get',
-    params: { page: page, row: row }
+    params: params
   })
 }
 
