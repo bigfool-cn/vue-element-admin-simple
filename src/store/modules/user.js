@@ -4,6 +4,7 @@ import router, { resetRouter } from '@/router'
 
 const state = {
   token: getToken(),
+  user_id: '',
   name: '',
   avatar: '',
   introduction: '',
@@ -16,6 +17,9 @@ const mutations = {
   },
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction
+  },
+  SET_USERID: (state, user_id) => {
+    state.user_id = user_id
   },
   SET_NAME: (state, name) => {
     state.name = name
@@ -54,7 +58,7 @@ const actions = {
           reject('验证失败，请重新登录。')
         }
 
-        const { roles, name, avatar, introduction } = data
+        const { roles, user_id, name, avatar, introduction } = data
 
         // roles must be a non-empty array
         if (!roles || roles.length <= 0) {
@@ -62,6 +66,7 @@ const actions = {
         }
 
         commit('SET_ROLES', roles)
+        commit('SET_USERID', user_id)
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
         commit('SET_INTRODUCTION', introduction)

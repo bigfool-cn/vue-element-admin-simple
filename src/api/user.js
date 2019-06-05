@@ -46,3 +46,11 @@ export function updateAdminUserPassword(data) {
     data
   })
 }
+
+export function updateUserPassword(data) {
+  return request({
+    url: '/user/update-user-password',
+    method: 'post',
+    data
+  })
+}
