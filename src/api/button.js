@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 按钮列表
 export function getSystemButtonList(params) {
   return request({
-    url: '/system/button-list',
+    url: '/system/button/button-list',
     method: 'get',
     params: params
   })
@@ -21,7 +21,7 @@ export function createSystemButton(data) {
 // 修改按钮
 export function updateSystemButton(data) {
   return request({
-    url: '/system/update-button',
+    url: '/system/button/update-button',
     method: 'post',
     data
   })
@@ -30,7 +30,7 @@ export function updateSystemButton(data) {
 // 删除按钮
 export function deleteSystemButton(data) {
   return request({
-    url: '/system/delete-button',
+    url: '/system/button/delete-button',
     method: 'post',
     data
   })
@@ -39,7 +39,7 @@ export function deleteSystemButton(data) {
 // 删除按钮
 export function updateSystemButtonEnable(data) {
   return request({
-    url: '/system/update-button-enable',
+    url: '/system/button/update-button-enable',
     method: 'post',
     data
   })
@@ -48,7 +48,7 @@ export function updateSystemButtonEnable(data) {
 // 全部按钮
 export function getSystemButtonAll(is_enable) {
   return request({
-    url: '/system/button-all',
+    url: '/system/button/button-all',
     method: 'get',
     param: { is_enable: is_enable }
   })

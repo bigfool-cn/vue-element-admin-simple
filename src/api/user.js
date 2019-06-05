@@ -17,7 +17,7 @@ export function getInfo() {
 
 export function getAdminUserList(params) {
   return request({
-    url: '/user/adminuser-list',
+    url: '/system/user/adminuser-list',
     method: 'get',
     params: params
   })
@@ -25,7 +25,7 @@ export function getAdminUserList(params) {
 
 export function createAdminUser(data) {
   return request({
-    url: '/user/create-adminuser',
+    url: '/system/user/create-adminuser',
     method: 'post',
     data
   })
@@ -33,7 +33,7 @@ export function createAdminUser(data) {
 
 export function updateAdminUserActive(data) {
   return request({
-    url: '/user/update-adminuser-active',
+    url: '/system/user/update-adminuser-active',
     method: 'post',
     data
   })
@@ -41,7 +41,7 @@ export function updateAdminUserActive(data) {
 
 export function updateAdminUserPassword(data) {
   return request({
-    url: '/user/update-adminuser-password',
+    url: '/system/user/update-adminuser-password',
     method: 'post',
     data
   })
