@@ -2,11 +2,6 @@
   <div class="content">
     <div class="filter-container">
       <el-input v-model="listQuery.role_name" placeholder="角色名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-select v-model="listQuery.is_enable" placeholder="是否可用" style="width: 200px;" class="filter-item">
-        <el-option label="全部" value="" />
-        <el-option label="可用" value="1" />
-        <el-option label="不可用" value="0" />
-      </el-select>
       <el-date-picker v-model="listQuery.date" class="filter-item" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" />
       <el-button class="filter-item" type="success" icon="el-icon-search" @click="handleFilter">
         查询
@@ -19,20 +14,12 @@
       <el-table-column align="center" type="index" width="50" />
       <el-table-column align="center" prop="role_name" label="角色名称" width="200" />
       <el-table-column align="center" prop="desc" label="角色描述" />
-      <el-table-column align="center" prop="is_enable" label="是否可用" width="100">
-        <template slot-scope="{row}">
-          <el-tag :type="row.is_enable | enableFilter">
-            {{ row.is_enable ? '可用' : '不可用' }}
-          </el-tag>
-        </template>
-      </el-table-column>
       <el-table-column align="center" prop="create_time" label="创建时间" width="200" />
       <el-table-column align="center" prop="update_time" label="更新时间" width="200" />
       <el-table-column align="center" label="操作" width="300px">
         <template slot-scope="scope">
-          <el-button type="danger" size="mini" @click="handleDelete(scope.row.role_id)">删除</el-button>
-          <el-button type="primary" size="mini" @click="handleUpdate(scope.row.role_id)">修改</el-button>
-          <el-button type="warning" size="mini" @click="changeEnable(scope.row.role_id, scope.row.is_enable)">{{ scope.row.is_enable ? '不可用' : '可用' }}</el-button>
+          <el-button v-loading="loading" type="danger" size="mini" @click="handleDelete(scope.row.role_id)">删除</el-button>
+          <el-button v-loading="loading" type="primary" size="mini" @click="handleUpdate(scope.row.role_id)">修改</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -46,7 +33,7 @@
 </template>
 
 <script>
-import { getRoleList, updateRoleEnable, deleteRole } from '@/api/role'
+import { getRoleList, deleteRole } from '@/api/role'
 import { Message } from 'element-ui'
 import Pagination from '@/components/Paginations'
 export default {
@@ -65,6 +52,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       pages: {
         per_page: 20,
         total: 10
@@ -73,7 +61,6 @@ export default {
         page: 1,
         row: 20,
         role_name: undefined,
-        is_enable: undefined,
         date: undefined
       },
       rolesData: []
@@ -111,23 +98,6 @@ export default {
     // 修改
     handleUpdate(id) {
       this.$router.push({ name: 'RoleEdit', params: { id: id }})
-    },
-    // 更改激活状态
-    changeEnable(id, val) {
-      const data = this.listQuery
-      data.role_id = id
-      data.is_enable = val
-      const text = val ? '不可用' : '可用'
-      this.$confirm('确定更改为[ ' + text + ' ]吗?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        updateRoleEnable(data).then(res => {
-          Message.success(res.msg)
-          this.dataBlock(res)
-        })
-      }).catch(() => {})
     },
     // 删除
     handleDelete(id) {

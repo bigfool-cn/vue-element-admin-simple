@@ -6,7 +6,22 @@
 
     <div class="user-profile">
       <div class="box-center">
-        <pan-thumb :image="user.avatar" :height="'100px'" :width="'100px'" :hoverable="false" />
+        <pan-thumb :image="user.avatar" :height="'100px'" :width="'100px'" :hoverable="false">
+          <div style="margin-top: 15px;">
+            <el-upload
+              class="avatar-uploader"
+              :action="action"
+              :headers="headers"
+              :data="data"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :on-error="handleAvatarError"
+              :before-upload="beforeAvatarUpload"
+            >
+              <i class="el-icon-plus avatar-uploader-icon" />
+            </el-upload>
+          </div>
+        </pan-thumb>
       </div>
       <div class="box-center">
         <div class="user-name text-center">{{ user.name }}</div>
@@ -20,20 +35,56 @@
 
 <script>
 import PanThumb from '@/components/PanThumb'
-
+import { Message } from 'element-ui'
 export default {
   components: { PanThumb },
   props: {
+    token: {
+      type: String,
+      default: ''
+    },
     user: {
       type: Object,
       default: () => {
         return {
+          user_id: 0,
           name: '',
           email: '',
           avatar: '',
           roles: ''
         }
       }
+    }
+  },
+  data() {
+    return {
+      action: 'http://vueadmin-api.bigfool.cn/user/upload-avatar',
+      headers: {
+        'Access-Token': this.token
+      },
+      data: {
+        user_id: this.user.user_id
+      }
+    }
+  },
+  methods: {
+    handleAvatarSuccess(res, file) {
+      //
+    },
+    handleAvatarError(res, file) {
+      Message.error('上传失败')
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === 'image/jpeg'
+      const isLt2M = file.size / 1024 / 1024 < 2
+
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!')
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!')
+      }
+      return isJPG && isLt2M
     }
   }
 }
@@ -63,38 +114,8 @@ export default {
      font-weight: 400;
      font-size: 14px;
    }
-
-   .box-social {
-     padding-top: 30px;
-
-     .el-table {
-       border-top: 1px solid #dfe6ec;
-     }
-   }
-
-   .user-follow {
-     padding-top: 20px;
-   }
  }
-
- .user-bio {
-   margin-top: 20px;
-   color: #606266;
-
-   span {
-     padding-left: 4px;
-   }
-
-   .user-bio-section {
-     font-size: 14px;
-     padding: 15px 0;
-
-     .user-bio-section-header {
-       border-bottom: 1px solid #dfe6ec;
-       padding-bottom: 10px;
-       margin-bottom: 10px;
-       font-weight: bold;
-     }
-   }
+ .avatar-uploader{
+   font-size: 25px;
  }
 </style>

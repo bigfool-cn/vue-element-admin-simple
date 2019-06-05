@@ -10,9 +10,6 @@
             <el-form-item label="角色描述" prop="desc">
               <el-input v-model="roleForm.desc" rows="4" type="textarea" />
             </el-form-item>
-            <el-form-item label="可用状态" prop="is_enable">
-              <el-switch v-model="roleForm.is_enable" />
-            </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="submitForm('roleForm')">保 存</el-button>
               <el-button @click="resetForm('roleForm')">重 置</el-button>
@@ -67,7 +64,6 @@ export default {
       roleForm: {
         role_name: '',
         desc: '',
-        is_enable: true,
         routers: [],
         buttons: []
       },
@@ -113,7 +109,6 @@ export default {
           role_id: res.data.role_id,
           role_name: res.data.role_name,
           desc: res.data.desc,
-          is_enable: Boolean(res.data.is_enable),
           routers: res.data.router_ids,
           buttons: res.data.button_ids
         }
@@ -186,5 +181,8 @@ export default {
 .auth-btn{
     text-align: center;
     padding: 10px;
+}
+.el-checkbox {
+  width: 100%;
 }
 </style>

@@ -49,7 +49,7 @@ export function updateAdminUserPassword(data) {
 
 export function updateUserPassword(data) {
   return request({
-    url: '/user/update-user-password',
+    url: '/system/user/update-user-password',
     method: 'post',
     data
   })

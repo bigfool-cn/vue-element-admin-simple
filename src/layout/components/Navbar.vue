@@ -35,18 +35,18 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <el-dialog title="修改密码" :visible.sync="dialogVisible" width="30%" center :show-close="false">
-      <el-form ref="changePasswordForm" :model="changePasswordForm" :rules="rules" label-width="85px">
-        <el-form-item label="旧密码" prop="old_password">
+    <el-dialog v-el-drag-dialog title="修改密码" :visible.sync="dialogVisible" width="30%" center :show-close="false">
+      <el-form ref="changePasswordForm" :model="changePasswordForm" :rules="rules">
+        <el-form-item label="旧密码" prop="old_password" label-width="85px">
           <el-input v-model="changePasswordForm.old_password" type="password" placeholder="新密码" />
         </el-form-item>
-        <el-form-item label="新密码" prop="password">
+        <el-form-item label="新密码" prop="password" label-width="85px">
           <el-input v-model="changePasswordForm.password" type="password" placeholder="新密码" />
         </el-form-item>
-        <el-form-item label="确认新密码" prop="password_confirm">
+        <el-form-item label="确认新密码" prop="password_confirm" label-width="85px">
           <el-input v-model="changePasswordForm.password_confirm" type="password" placeholder="再次输入新密码" />
         </el-form-item>
-        <el-form-item>
+        <el-form-item label-width="0px" style="text-align: center">
           <el-button @click="closeDialog('changePasswordForm')">取 消</el-button>
           <el-button type="primary" @click="changePassword('changePasswordForm')">确 定</el-button>
         </el-form-item>
@@ -62,9 +62,11 @@ import Hamburger from '@/components/Hamburger'
 import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
 import Search from '@/components/HeaderSearch'
+import elDragDialog from '@/directive/el-drag-dialog'
 import { Message } from 'element-ui'
 import { updateUserPassword } from '@/api/user'
 export default {
+  directives: { elDragDialog },
   components: {
     Breadcrumb,
     Hamburger,

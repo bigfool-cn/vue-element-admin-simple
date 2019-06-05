@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div v-if="user">
-      <user-card :user="user" :style="contentStyleObj" />
+      <user-card :user="user" :token="token" :style="contentStyleObj" />
     </div>
   </div>
 </template>
@@ -23,6 +23,8 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'token',
+      'user_id',
       'name',
       'avatar',
       'roles'
@@ -39,6 +41,7 @@ export default {
     },
     getUser() {
       this.user = {
+        user_id: this.user_id,
         name: this.name,
         role: this.roles.join(' | '),
         email: 'admin@test.com',

@@ -32,30 +32,32 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="create_time" label="注册时间" />
-      <el-table-column align="center" prop="update_time" label="更新时间" />
-      <el-table-column align="center" prop="login_time" label="最后登录时间" />
+      <el-table-column align="center" prop="is_active" label="用户角色">
+        <template slot-scope="{row}">
+          <el-tag v-for="(role,index) in row.roles" :key="index" type="primary" style="margin-left: 5px;">
+            {{ role.role_name }}
+          </el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" prop="create_time" label="注册时间" width="180" />
+      <el-table-column align="center" prop="update_time" label="更新时间" width="180" />
+      <el-table-column align="center" prop="login_time" label="最后登录时间" width="180" />
       <el-table-column align="center" label="操作" width="300px">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="handleClick(scope.row.admin_user_id)">修改密码</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <pagination
-      :page-size="pages.per_page"
-      :total="pages.total"
-      @handleCurrentChange="handleCurrentChange"
-      @handleSizeChange="handleSizeChange"
-    />
-    <el-dialog title="修改密码" :visible.sync="dialogVisible" width="30%" center :show-close="false">
-      <el-form ref="changePasswordForm" :model="changePasswordForm" :rules="rules" label-width="85px">
-        <el-form-item label="新密码" prop="password">
+    <pagination :page-size="pages.per_page" :total="pages.total" @handleCurrentChange="handleCurrentChange" @handleSizeChange="handleSizeChange" />
+    <el-dialog v-el-drag-dialog title="修改密码" :visible.sync="dialogVisible" width="30%" center :show-close="false">
+      <el-form ref="changePasswordForm" :model="changePasswordForm" :rules="rules">
+        <el-form-item label="新密码" prop="password" label-width="85px">
           <el-input v-model="changePasswordForm.password" type="password" placeholder="新密码" />
         </el-form-item>
-        <el-form-item label="确认新密码" prop="password_confirm">
+        <el-form-item label="确认新密码" prop="password_confirm" label-width="85px">
           <el-input v-model="changePasswordForm.password_confirm" type="password" placeholder="再次输入新密码" />
         </el-form-item>
-        <el-form-item>
+        <el-form-item label-width="px" style="text-align: center">
           <el-button @click="closeDialog('changePasswordForm')">取 消</el-button>
           <el-button type="primary" @click="changePassword('changePasswordForm')">确 定</el-button>
         </el-form-item>
@@ -68,8 +70,10 @@
 import { Message } from 'element-ui'
 import { getAdminUserList, updateAdminUserActive, updateAdminUserPassword } from '@/api/user'
 import Pagination from '@/components/Paginations'
+import elDragDialog from '@/directive/el-drag-dialog'
 export default {
   name: 'AdminUser',
+  directives: { elDragDialog },
   components: {
     Pagination
   },

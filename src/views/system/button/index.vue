@@ -42,18 +42,18 @@
       @handleCurrentChange="handleCurrentChange"
       @handleSizeChange="handleSizeChange"
     />
-    <el-dialog :title="formTitle" :visible.sync="dialogVisible" width="30%" center :show-close="false">
-      <el-form ref="buttonForm" :model="buttonForm" :rules="rules" label-width="85px">
-        <el-form-item label="按钮名称" prop="title">
+    <el-dialog v-el-drag-dialog :title="formTitle" :visible.sync="dialogVisible" width="30%" center :show-close="false">
+      <el-form ref="buttonForm" :model="buttonForm" :rules="rules">
+        <el-form-item label="按钮名称" prop="title" label-width="85px">
           <el-input v-model="buttonForm.title" type="text" placeholder="按钮名称" />
         </el-form-item>
-        <el-form-item label="唯一标识" prop="key">
+        <el-form-item label="唯一标识" prop="key" label-width="85px">
           <el-input v-model="buttonForm.key" type="text" placeholder="唯一标识" />
         </el-form-item>
-        <el-form-item label="是否可用" prop="is_enable">
+        <el-form-item label="是否可用" prop="is_enable" label-width="85px">
           <el-switch v-model="buttonForm.is_enable" />
         </el-form-item>
-        <el-form-item>
+        <el-form-item label-width="0px" style="text-align: center;">
           <el-button @click="closeDialog('buttonForm')">取 消</el-button>
           <el-button type="primary" @click="submitForm('buttonForm')">保 存</el-button>
         </el-form-item>
@@ -66,8 +66,10 @@
 import { Message } from 'element-ui'
 import { getSystemButtonList, createSystemButton, updateSystemButton, deleteSystemButton, updateSystemButtonEnable } from '@/api/button'
 import Pagination from '@/components/Paginations'
+import elDragDialog from '@/directive/el-drag-dialog'
 export default {
   name: 'Button',
+  directives: { elDragDialog },
   components: {
     Pagination
   },
