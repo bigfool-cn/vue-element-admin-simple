@@ -69,22 +69,36 @@ export default {
   },
   methods: {
     handleAvatarSuccess(res, file) {
-      //
+      if (res.code !== 20000) {
+        Message.error(res.msg)
+      } else {
+        Message.success(res.msg)
+        this.$store.dispatch('user/saveAvatar', res.data.avatar)
+        this.user.avatar = res.data.avatar
+      }
     },
     handleAvatarError(res, file) {
       Message.error('上传失败')
     },
     beforeAvatarUpload(file) {
-      const isJPG = file.type === 'image/jpeg'
+      const isJPEG = file.type === 'image/jpeg'
+      const isJPG = file.type === 'image/jpg'
+      const isPNG = file.type === 'image/png'
+      const isGIF = file.type === 'image/gif'
       const isLt2M = file.size / 1024 / 1024 < 2
-
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!')
+      switch (file.type) {
+        case 'image/jpeg':
+        case 'image/jpg':
+        case 'image/png':
+        case 'image/gif':
+          break
+        default:
+          this.$message.error('上传头像图片能是 JPG/JPEG/PNG/GIF 格式!')
       }
       if (!isLt2M) {
         this.$message.error('上传头像图片大小不能超过 2MB!')
       }
-      return isJPG && isLt2M
+      return (isJPG || isPNG || isGIF || isJPEG) && isLt2M
     }
   }
 }

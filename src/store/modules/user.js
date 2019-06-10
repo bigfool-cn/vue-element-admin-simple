@@ -88,6 +88,14 @@ const actions = {
     })
   },
 
+  // save avatar
+  saveAvatar({ commit }, avatar) {
+    return new Promise(resolve => {
+      commit('SET_AVATAR', avatar)
+      resolve()
+    })
+  },
+
   // save token
   saveToken({ commit }, token) {
     return new Promise(resolve => {
