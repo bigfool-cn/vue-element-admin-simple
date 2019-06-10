@@ -104,19 +104,19 @@ export const asyncRoutes = [
     redirect: 'noRedirect',
     name: 'System',
     alwaysShow: true,
-    meta: { title: '系统管理', icon: 'system', roles: ['admin'] },
+    meta: { title: '系统管理', icon: 'system' },
     children: [
       {
         path: 'router',
         name: 'Router',
         component: () => import('@/views/system/router'),
-        meta: { title: '路由管理', roles: ['admin'] }
+        meta: { title: '路由管理' }
       },
       {
         path: 'button',
         name: 'Button',
         component: () => import('@/views/system/button'),
-        meta: { title: '按钮管理', roles: ['admin'] }
+        meta: { title: '按钮管理' }
       },
       {
         path: '/system/user-manage',
@@ -124,20 +124,20 @@ export const asyncRoutes = [
         redirect: 'noRedirect',
         name: 'UserManage',
         alwaysShow: true,
-        meta: { title: '用户管理', roles: ['admin'] },
+        meta: { title: '用户管理' },
         children: [
           {
             path: 'adminuser',
             name: 'AdminUser',
             component: () => import('@/views/system/user-manage/adminuser'),
-            meta: { title: '管理员', roles: ['admin'] }
+            meta: { title: '管理员' }
           },
           {
             path: 'adminuser/add',
             name: 'AdminUserAdd',
             component: () => import('@/views/system//user-manage/adminuser/add'),
             hidden: true,
-            meta: { title: '管理员--新增', roles: ['admin'] }
+            meta: { title: '管理员--新增' }
           }
         ]
       },
@@ -147,39 +147,40 @@ export const asyncRoutes = [
         component: () => import('@/views/system/auth-manage'),
         alwaysShow: true,
         redirect: 'noRedirect',
-        meta: { title: '权限管理', roles: ['admin'] },
+        meta: { title: '权限管理' },
         children: [
           {
             path: 'role',
             name: 'Role',
             component: () => import('@/views/system/auth-manage/role'),
-            meta: { title: '角色管理', roles: ['admin'] }
+            meta: { title: '角色管理' }
           },
           {
             path: 'role/add',
             name: 'RoleAdd',
             component: () => import('@/views/system/auth-manage/role/add'),
             hidden: true,
-            meta: { title: '角色管理--新增', roles: ['admin'] }
+            meta: { title: '角色管理--新增' }
           },
           {
             path: 'role/edit',
             name: 'RoleEdit',
             component: () => import('@/views/system/auth-manage/role/edit'),
             hidden: true,
-            meta: { title: '角色管理-修改', roles: ['admin'] }
+            meta: { title: '角色管理-修改' }
           },
           {
             path: 'auth',
             name: 'Auth',
             component: () => import('@/views/system/auth-manage/auth'),
-            meta: { title: '权限列表', roles: ['admin'] }
+            meta: { title: '权限列表' }
           }
         ]
       }
     ]
-  },
-
+  }
+]
+export const errorRouters = [
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
