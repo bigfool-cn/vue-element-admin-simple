@@ -2,10 +2,10 @@ import { errorRoutes, constantRoutes } from '@/router'
 import Layout from '@/layout'
 const _import = require('@/router/_import_component')
 
-export function filterAsyncRouters(asyncRouterMap) {
+export function filterAsyncRoutes(asyncRouter) {
   // 遍历后台传来的路由字符串，转换为组件对象
-  const accessedRouters = []
-  asyncRouterMap.forEach(router => {
+  const accessedRoutes = []
+  asyncRouter.forEach(router => {
     if (router.component) {
       if (router.component === 'Layout') {
         // Layout组件特殊处理
@@ -15,11 +15,11 @@ export function filterAsyncRouters(asyncRouterMap) {
       }
     }
     if (router.children && router.children.length) {
-      router.children = filterAsyncRouters(router.children)
+      router.children = filterAsyncRoutes(router.children)
     }
-    accessedRouters.push(router)
+    accessedRoutes.push(router)
   })
-  return accessedRouters
+  return accessedRoutes
 }
 
 const state = {
@@ -41,8 +41,7 @@ const mutations = {
 const actions = {
   generateRoutes({ commit }, { routers, buttons }) {
     return new Promise(resolve => {
-      const accessedRoutes = filterAsyncRouters(routers).concat(errorRoutes)
-      console.log(accessedRoutes)
+      const accessedRoutes = filterAsyncRoutes(routers).concat(errorRoutes)
       commit('SET_ROUTERS', accessedRoutes)
       commit('SET_BUTTONS', buttons)
       resolve(accessedRoutes)
