@@ -1,6 +1,5 @@
 import { errorRoutes, constantRoutes } from '@/router'
 import Layout from '@/layout'
-const _import = require('@/router/_import_component')
 
 export function filterAsyncRoutes(asyncRouter) {
   // 遍历后台传来的路由字符串，转换为组件对象
@@ -11,7 +10,8 @@ export function filterAsyncRoutes(asyncRouter) {
         // Layout组件特殊处理
         router.component = Layout
       } else {
-        router.component = _import(router.component)
+        const component = router.component
+        router.component = () => import(`@/views/${component}`)
       }
     }
     if (router.children && router.children.length) {
