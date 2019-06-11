@@ -180,7 +180,7 @@ export const asyncRoutes = [
     ]
   }
 ]
-export const errorRouters = [
+export const errorRoutes = [
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
