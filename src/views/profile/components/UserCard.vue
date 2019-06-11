@@ -9,6 +9,7 @@
         <pan-thumb :image="user.avatar" :height="'100px'" :width="'100px'" :hoverable="false">
           <div style="margin-top: 15px;">
             <el-upload
+              v-permission="button.profile_upload_avatar"
               class="avatar-uploader"
               :action="action"
               :headers="headers"
@@ -36,8 +37,11 @@
 <script>
 import PanThumb from '@/components/PanThumb'
 import { Message } from 'element-ui'
+import permission from '@/directive/permission'
+
 export default {
   components: { PanThumb },
+  directives: { permission },
   props: {
     token: {
       type: String,
@@ -58,6 +62,9 @@ export default {
   },
   data() {
     return {
+      button: {
+        profile_upload_avatar: 'profile_upload_avatar'
+      },
       action: 'http://vueadmin-api.bigfool.cn/user/upload-avatar',
       headers: {
         'Access-Token': this.token

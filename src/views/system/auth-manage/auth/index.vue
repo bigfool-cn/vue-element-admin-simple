@@ -37,6 +37,7 @@
 <script>
 import Pagination from '@/components/Paginations'
 import { getAuthList } from '@/api/auth'
+
 export default {
   name: 'Auth',
   components: {

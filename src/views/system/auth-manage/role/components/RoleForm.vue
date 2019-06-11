@@ -27,6 +27,7 @@
           :default-expand-all="true"
           :default-checked-keys="roleForm.routers"
           :props="defaultProps"
+          :check-strictly="true"
           @check-change="getCheckRouters"
         />
       </el-aside>

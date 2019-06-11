@@ -12,7 +12,7 @@ export function getSystemButtonList(params) {
 // 新增按钮
 export function createSystemButton(data) {
   return request({
-    url: '/system/create-button',
+    url: '/system/button/create-button',
     method: 'post',
     data
   })

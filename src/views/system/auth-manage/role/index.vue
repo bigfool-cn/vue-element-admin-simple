@@ -6,7 +6,7 @@
       <el-button class="filter-item" type="success" icon="el-icon-search" @click="handleFilter">
         查询
       </el-button>
-      <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
+      <el-button v-permission="button.role_add" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
         新增
       </el-button>
     </div>
@@ -18,8 +18,8 @@
       <el-table-column align="center" prop="update_time" label="更新时间" width="200" />
       <el-table-column align="center" label="操作" width="300px">
         <template slot-scope="scope">
-          <el-button v-loading="loading" type="danger" size="mini" @click="handleDelete(scope.row.role_id)">删除</el-button>
-          <el-button v-loading="loading" type="primary" size="mini" @click="handleUpdate(scope.row.role_id)">修改</el-button>
+          <el-button v-permission="button.role_delete" v-loading="loading" type="danger" size="mini" @click="handleDelete(scope.row.role_id)">删除</el-button>
+          <el-button v-permission="button.role_edit" v-loading="loading" type="primary" size="mini" @click="handleUpdate(scope.row.role_id)">修改</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -36,11 +36,14 @@
 import { getRoleList, deleteRole } from '@/api/role'
 import { Message } from 'element-ui'
 import Pagination from '@/components/Paginations'
+import permission from '@/directive/permission'
+
 export default {
   name: 'Role',
   components: {
     Pagination
   },
+  directives: { permission },
   filters: {
     enableFilter(isEnable) {
       const enableMap = {
@@ -52,6 +55,11 @@ export default {
   },
   data() {
     return {
+      button: {
+        role_add: 'role_add',
+        role_edit: 'role_edit',
+        role_delete: 'role_delete'
+      },
       loading: false,
       pages: {
         per_page: 20,

@@ -14,9 +14,9 @@
           @node-click="handleNodeClick"
         />
         <div style="padding-top: 30px;">
-          <el-button v-loading="loading" type="primary" size="mini" @click.stop="append">新增</el-button>
-          <el-button v-loading="loading" type="danger" size="mini" @click.stop="remove">删除</el-button>
-          <el-button v-show="showSave" v-loading="loading" type="primary" size="mini" @click.stop="submitForm">保存</el-button>
+          <el-button v-permission="router_add" v-loading="loading" type="primary" size="mini" @click.stop="append">新增</el-button>
+          <el-button v-permission="router_delete" v-loading="loading" type="danger" size="mini" @click.stop="remove">删除</el-button>
+          <el-button v-show="showSave" v-permission="router_save" v-loading="loading" type="primary" size="mini" @click.stop="submitForm">保存</el-button>
         </div>
       </el-aside>
       <el-aside style="background-color: white;margin-bottom: 0px" width="70%">
@@ -31,14 +31,22 @@
 import JsonEditor from '@/components/JsonEditor'
 import { Message } from 'element-ui'
 import { getAdminRouterTree, createAdminRouter, updateAdminRouter, getAdminRouter, deleteAdminRouter, updateAdminRouterSort } from '@/api/admin-router'
+import permission from '@/directive/permission'
+
 const parentRouter = '{"path": "/system","component": "Layout","redirect": "noRedirect","name": "System","hihhen": "false","alwaysShow": "true","meta": {"title": "系统管理","icon": "system"}}'
 const childrenRouter = '{"path": "adminu-router","name": "AdminRouter","component": "/system/admin-router","hihhen": "false","alwaysShow": "true","meta": {"title": "路由管理","icon": "router"}}'
 let id = 10000
 export default {
   name: 'Router',
   components: { JsonEditor },
+  directives: { permission },
   data() {
     return {
+      button: {
+        router_add: 'router_add',
+        router_delete: 'router_delete',
+        router_save: 'router_save'
+      },
       loading: false,
       isCreate: false,
       id: 0,

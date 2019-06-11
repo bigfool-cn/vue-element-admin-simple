@@ -11,10 +11,17 @@
       <el-button class="filter-item" type="success" icon="el-icon-search" @click="handleFilter">
         查询
       </el-button>
-      <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
+      <el-button v-permission="button.adminuser_add" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
         新增
       </el-button>
-      <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
+      <el-button
+        v-permission="button.adminuser_export"
+        :loading="downloadLoading"
+        class="filter-item"
+        type="primary"
+        icon="el-icon-download"
+        @click="handleDownload"
+      >
         导出
       </el-button>
     </div>
@@ -26,7 +33,6 @@
           <el-tag
             :type="row.is_active | activeFilter"
             style="cursor: pointer"
-            @click="changeActive(row.admin_user_id, row.is_active)"
           >
             {{ row.is_active ? '已激活' : '未激活' }}
           </el-tag>
@@ -44,7 +50,10 @@
       <el-table-column align="center" prop="login_time" label="最后登录时间" width="180" />
       <el-table-column align="center" label="操作" width="300px">
         <template slot-scope="scope">
-          <el-button v-permission="button.adminuser_edit" type="primary" size="small" @click="handleClick(scope.row.admin_user_id)">修改密码</el-button>
+          <el-button :type="scope.row.is_active ? 'info' : 'warning'" size="mini" @click="changeActive(scope.row.admin_user_id, scope.row.is_active)">
+            {{ scope.row.is_active ? '禁用' : '激活' }}
+          </el-button>
+          <el-button v-permission="button.adminuser_edit_pwd" type="primary" size="mini" @click="handleClick(scope.row.admin_user_id)">修改密码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -112,7 +121,10 @@ export default {
     }
     return {
       button: {
-        adminuser_edit: 'adminuser_edit'
+        adminuser_add: 'adminuser_add',
+        adminuser_edit_pwd: 'adminuser_edit_pwd',
+        adminuser_export: 'adminuser_export',
+        adminuser_delete: 'adminuser_delete'
       },
       pages: {
         per_page: 20,

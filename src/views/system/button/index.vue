@@ -11,7 +11,7 @@
       <el-button class="filter-item" type="success" icon="el-icon-search" @click="handleFilter">
         查询
       </el-button>
-      <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
+      <el-button v-permission="button.button_add" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
         新增
       </el-button>
     </div>
@@ -30,9 +30,14 @@
       <el-table-column align="center" prop="update_time" label="更新时间" width="180" />
       <el-table-column align="center" label="操作" width="300px">
         <template slot-scope="scope">
-          <el-button type="danger" size="mini" @click="deleteButton(scope.row.button_id)">删除</el-button>
-          <el-button type="primary" size="mini" @click="updateButton(scope.row)">修改</el-button>
-          <el-button type="warning" size="mini" @click="changeEnable(scope.row.button_id, scope.row.is_enable)">{{ scope.row.is_enable ? '不可用' : '可用' }}</el-button>
+          <el-button v-permission="button.button_delete" type="danger" size="mini" @click="deleteButton(scope.row.button_id)">删除</el-button>
+          <el-button v-permission="button.button_edit" type="primary" size="mini" @click="updateButton(scope.row)">修改</el-button>
+          <el-button
+            v-permission="button.button_enable"
+            type="warning"
+            size="mini"
+            @click="changeEnable(scope.row.button_id, scope.row.is_enable)"
+          >{{ scope.row.is_enable ? '不可用' : '可用' }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -67,9 +72,11 @@ import { Message } from 'element-ui'
 import { getSystemButtonList, createSystemButton, updateSystemButton, deleteSystemButton, updateSystemButtonEnable } from '@/api/button'
 import Pagination from '@/components/Paginations'
 import elDragDialog from '@/directive/el-drag-dialog'
+import permission from '@/directive/permission'
+
 export default {
   name: 'Button',
-  directives: { elDragDialog },
+  directives: { elDragDialog, permission },
   components: {
     Pagination
   },
@@ -84,6 +91,12 @@ export default {
   },
   data() {
     return {
+      button: {
+        button_add: 'button_add',
+        button_edit: 'button_edit',
+        button_delete: 'button_delete',
+        button_enable: 'button_enable'
+      },
       pages: {
         per_page: 20,
         total: 10
