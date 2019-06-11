@@ -11,7 +11,7 @@ export function filterAsyncRoutes(asyncRouter) {
         router.component = Layout
       } else {
         const component = router.component
-        router.component = () => import(`@/views/${component}`)
+        router.component = () => import(`@/views${component}`)
       }
     }
     if (router.children && router.children.length) {

@@ -87,7 +87,7 @@ export default {
   },
   watch: {
     buttons(newVal, oldVal) {
-      if (newVal.length === this.roleForm.buttons.length) {
+      if (newVal.length === this.roleForm.buttons.length && newVal.length !== 0) {
         this.checkAll = true
         this.isIndeterminate = false
       }

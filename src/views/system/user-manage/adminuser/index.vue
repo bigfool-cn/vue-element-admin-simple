@@ -44,7 +44,7 @@
       <el-table-column align="center" prop="login_time" label="最后登录时间" width="180" />
       <el-table-column align="center" label="操作" width="300px">
         <template slot-scope="scope">
-          <el-button type="primary" size="small" @click="handleClick(scope.row.admin_user_id)">修改密码</el-button>
+          <el-button v-permission="button.adminuser_edit" type="primary" size="small" @click="handleClick(scope.row.admin_user_id)">修改密码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -71,9 +71,11 @@ import { Message } from 'element-ui'
 import { getAdminUserList, updateAdminUserActive, updateAdminUserPassword } from '@/api/user'
 import Pagination from '@/components/Paginations'
 import elDragDialog from '@/directive/el-drag-dialog'
+import permission from '@/directive/permission'
+
 export default {
   name: 'AdminUser',
-  directives: { elDragDialog },
+  directives: { elDragDialog, permission },
   components: {
     Pagination
   },
@@ -109,6 +111,9 @@ export default {
       }
     }
     return {
+      button: {
+        adminuser_edit: 'adminuser_edit'
+      },
       pages: {
         per_page: 20,
         total: 10
