@@ -21,15 +21,15 @@ export function filterAsyncRouters(asyncRouterMap) {
 }
 
 const state = {
-  routers: [],
+  routes: [],
   buttons: [],
-  addRouters: []
+  addRoutes: []
 }
 
 const mutations = {
-  SET_ROUTERS: (state, routers) => {
-    state.addRouters = routers
-    state.routers = constantRoutes.concat(routers)
+  SET_ROUTERS: (state, routes) => {
+    state.addRoutes = routes
+    state.routes = constantRoutes.concat(routes)
   },
   SET_BUTTONS: (state, buttons) => {
     state.buttons = buttons
@@ -37,7 +37,7 @@ const mutations = {
 }
 
 const actions = {
-  generateRouters({ commit }, { routers, buttons }) {
+  generateRoutes({ commit }, { routers, buttons }) {
     return new Promise(resolve => {
       const accessedRouters = filterAsyncRouters(routers).concat(errorRoutes)
       commit('SET_ROUTERS', accessedRouters)

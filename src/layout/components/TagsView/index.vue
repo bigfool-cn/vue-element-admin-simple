@@ -45,7 +45,7 @@ export default {
       return this.$store.state.tagsView.visitedViews
     },
     routes() {
-      return this.$store.state.permission.routers
+      return this.$store.state.permission.routes
     }
   },
   watch: {
