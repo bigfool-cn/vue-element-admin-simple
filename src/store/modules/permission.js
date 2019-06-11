@@ -11,7 +11,7 @@ export function filterAsyncRouters(asyncRouterMap) {
         // Layout组件特殊处理
         router.component = Layout
       } else {
-        router.component = () => _import(router.component)
+        router.component = _import(router.component)
       }
     }
     if (router.children && router.children.length) {
