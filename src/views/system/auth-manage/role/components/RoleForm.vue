@@ -104,7 +104,7 @@ export default {
     window.addEventListener('resize', this.getHeight)
     this.getHeight()
     if (this.isEdit) {
-      const roleId = this.$route.params.id
+      const roleId = this.$route.query.id
       getRole(roleId).then(res => {
         this.roleForm = {
           role_id: res.data.role_id,

@@ -28,7 +28,7 @@
     <el-table :data="adminUserData" border style="width: 100%">
       <el-table-column align="center" type="index" width="50" />
       <el-table-column align="center" prop="username" label="用户名" width="150" />
-      <el-table-column align="center" prop="avatar" label="用户头像" width="150">
+      <el-table-column align="center" prop="avatar" label="用户头像" width="120">
         <template slot-scope="{row}">
           <img width="50px" height="50px" :src="row.avatar">
         </template>
@@ -43,16 +43,16 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="is_active" label="用户角色">
+      <el-table-column align="center" prop="is_active" label="用户角色" width="150">
         <template slot-scope="{row}">
           <el-tag v-for="(role,index) in row.roles" :key="index" type="primary" style="margin-left: 5px;">
             {{ role.role_name }}
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="create_time" label="注册时间" width="180" />
-      <el-table-column align="center" prop="update_time" label="更新时间" width="180" />
-      <el-table-column align="center" prop="login_time" label="最后登录时间" width="180" />
+      <el-table-column align="center" prop="create_time" label="注册时间" width="160" />
+      <el-table-column align="center" prop="update_time" label="更新时间" width="160" />
+      <el-table-column align="center" prop="login_time" label="最后登录时间" width="160" />
       <el-table-column align="center" label="操作" width="300px">
         <template slot-scope="scope">
           <el-button v-loading="isLoading" :type="scope.row.is_active ? 'info' : 'warning'" size="mini" @click="changeActive(scope.row.admin_user_id, scope.row.is_active)">

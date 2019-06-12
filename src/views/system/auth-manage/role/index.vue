@@ -105,7 +105,7 @@ export default {
     },
     // 修改
     handleUpdate(id) {
-      this.$router.push({ name: 'RoleEdit', params: { id: id }})
+      this.$router.push({ name: 'RoleEdit', query: { id: id }})
     },
     // 删除
     handleDelete(id) {
