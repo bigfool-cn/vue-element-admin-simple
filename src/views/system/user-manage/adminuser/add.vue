@@ -11,6 +11,16 @@
         <el-form-item label="确认密码" prop="password_confirm">
           <el-input v-model="adminUserForm.password_confirm" type="password" placeholder="再次输入密码" />
         </el-form-item>
+        <el-form-item label="分配角色" prop="roles">
+          <el-select v-model="adminUserForm.roles" v-el-select-loadmore="loadMoreRoles" multiple :multiple-limit="3" placeholder="请选择角色">
+            <el-option
+              v-for="item in roleList"
+              :key="item.role_id"
+              :label="item.role_name"
+              :value="item.role_id"
+            />
+          </el-select>
+        </el-form-item>
         <el-form-item label="激活状态" prop="is_active">
           <el-switch v-model="adminUserForm.is_active" />
         </el-form-item>
@@ -25,9 +35,12 @@
 
 <script>
 import { createAdminUser } from '@/api/user'
+import { getRoleList } from '@/api/role'
+import elSelectLoadmore from '@/directive/el-select-loadmore'
 import { Message } from 'element-ui'
 export default {
   name: 'AdminUserAdd',
+  directives: { elSelectLoadmore },
   inject: ['reload'],
   data() {
     var validateUserName = (rule, value, callback) => {
@@ -63,11 +76,27 @@ export default {
         callback()
       }
     }
+    var validateRoles = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请选择角色'))
+      } else if (value.length > 3) {
+        callback(new Error('选择角色数目不能超过3个'))
+      } else {
+        callback()
+      }
+    }
     return {
+      roleList: [], // 角色列表
+      isMore: false, // 是否有更多
+      listQuery: {
+        page: 1,
+        row: 10
+      },
       adminUserForm: {
         username: '',
         password: '',
         password_confirm: '',
+        roles: [],
         is_active: false
       },
       rules: {
@@ -79,11 +108,37 @@ export default {
         ],
         password_confirm: [
           { validator: validatePasswordConfirm, trigger: 'blur' }
+        ],
+        roles: [
+          { validator: validateRoles, trigger: 'blur' }
         ]
       }
     }
   },
+  created() {
+    // 获取角色列表
+    this.initData(this.listQuery)
+  },
   methods: {
+    dataBlock(res, isInit) {
+      this.listQuery.page = res.data.pages.current_page + 1
+      this.listQuery.row = res.data.pages.per_page
+      this.roleList = isInit ? res.data.roles : this.roleList.concat(res.data.roles)
+      this.isMore = (res.data.pages.current_page < res.data.pages.last_page)
+    },
+    initData(params) {
+      getRoleList(params).then(res => {
+        this.dataBlock(res, true)
+      })
+    },
+    // 加载更多角色列表
+    loadMoreRoles() {
+      if (this.isMore) {
+        getRoleList(this.listQuery).then(res => {
+          this.dataBlock(res, false)
+        })
+      }
+    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {

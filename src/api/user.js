@@ -54,3 +54,11 @@ export function updateUserPassword(data) {
     data
   })
 }
+
+export function updateAdminUserRole(data) {
+  return request({
+    url: '/system/user/update-adminuser-role',
+    method: 'post',
+    data
+  })
+}

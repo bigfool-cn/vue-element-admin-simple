@@ -133,7 +133,7 @@ export default {
   methods: {
     dataBlock(res) {
       this.pages = res.data.pages
-      this.listQuery.page = this.pages.current_page
+      this.listQuery.page = this.pages.current_page + 1
       this.listQuery.row = this.pages.per_page
       this.buttonData = res.data.system_buttons
     },

@@ -14,9 +14,9 @@
           @node-click="handleNodeClick"
         />
         <div style="padding-top: 30px;">
-          <el-button v-permission="router_add" v-loading="loading" type="primary" size="mini" @click.stop="append">新增</el-button>
-          <el-button v-permission="router_delete" v-loading="loading" type="danger" size="mini" @click.stop="remove">删除</el-button>
-          <el-button v-show="showSave" v-permission="router_save" v-loading="loading" type="primary" size="mini" @click.stop="submitForm">保存</el-button>
+          <el-button v-permission="button.router_add" v-loading="loading" type="primary" size="mini" @click.stop="append">新增</el-button>
+          <el-button v-permission="button.router_delete" v-loading="loading" type="danger" size="mini" @click.stop="remove">删除</el-button>
+          <el-button v-show="showSave" v-permission="button.router_save" v-loading="loading" type="primary" size="mini" @click.stop="submitForm">保存</el-button>
         </div>
       </el-aside>
       <el-aside style="background-color: white;margin-bottom: 0px" width="70%">
@@ -148,7 +148,7 @@ export default {
           }
           deleteAdminRouter(data).then(res => {
             Message.success(res.msg)
-            this.treeRouter = res.data
+            this.treeRouter = res.data.routers_tree
             this.id = 0
           })
         }).catch(() => {})
