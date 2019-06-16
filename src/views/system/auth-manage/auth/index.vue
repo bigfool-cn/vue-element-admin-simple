@@ -8,7 +8,7 @@
         <el-option label="按钮" value="按钮" />
       </el-select>
       <el-date-picker v-model="listQuery.date" class="filter-item" type="daterange" value-format="yyyy-MM-dd" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" />
-      <el-button class="filter-item" type="success" icon="el-icon-search" @click="handleFilter">
+      <el-button v-loading="loading" class="filter-item" type="success" icon="el-icon-search" @click="handleFilter">
         查询
       </el-button>
     </div>
@@ -54,6 +54,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       pages: {
         per_page: 20,
         total: 10
@@ -84,6 +85,7 @@ export default {
       })
     },
     handleSizeChange(val) {
+      this.listQuery.page = 1
       this.listQuery.row = val
       this.initData(this.listQuery)
     },
@@ -92,28 +94,10 @@ export default {
       this.initData(this.listQuery)
     },
     handleFilter() {
-      this.initData(this.listQuery)
-    },
-    // 修改
-    handleUpdate(id) {
-      this.$router.push({ name: 'RoleUpdate', params: { id: id }})
-    },
-    // 删除
-    handleDelete(id) {
       this.loading = true
-      this.$confirm('确定要删除吗?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-
-      }).catch(() => {})
+      this.listQuery.page = 1
+      this.initData(this.listQuery)
       this.loading = false
-    },
-    // 查看路由配置
-    handleAuth(id) {
-      this.dialogVisible = true
-      this.dialogTitle = ''
     }
   }
 }

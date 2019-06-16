@@ -258,6 +258,7 @@ export default {
       this.isLoading = false
     },
     handleSizeChange(val) {
+      this.listQuery.page = 1
       this.listQuery.row = val
       this.initData(this.listQuery)
     },
@@ -267,6 +268,7 @@ export default {
     },
     handleFilter() {
       this.isLoading = true
+      this.listQuery.page = 1
       this.initData(this.listQuery)
       this.isLoading = false
     },
@@ -302,12 +304,13 @@ export default {
     // 更改激活状态
     changeActive(id, val) {
       this.isLoading = true
-      const data = this.listQuery
-      data.admin_user_id = id
-      data.is_active = val
+      const data = {
+        admin_user_id: id,
+        is_active: val
+      }
       updateAdminUserActive(data).then(res => {
         Message.success(res.msg)
-        this.adminUserData = res.data.admin_users
+        this.reload()
       })
       this.isLoading = false
     },

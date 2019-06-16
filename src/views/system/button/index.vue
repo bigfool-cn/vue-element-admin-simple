@@ -76,6 +76,7 @@ import permission from '@/directive/permission'
 
 export default {
   name: 'Button',
+  inject: ['reload'],
   directives: { elDragDialog, permission },
   components: {
     Pagination
@@ -143,6 +144,7 @@ export default {
       })
     },
     handleSizeChange(val) {
+      this.listQuery.page = 1
       this.listQuery.row = val
       this.initData(this.listQuery)
     },
@@ -151,6 +153,7 @@ export default {
       this.initData(this.listQuery)
     },
     handleFilter() {
+      this.listQuery.page = 1
       this.initData(this.listQuery)
     },
     handleCreate() {
@@ -164,9 +167,10 @@ export default {
     },
     // 更改激活状态
     changeEnable(id, val) {
-      const data = this.listQuery
-      data.button_id = id
-      data.is_enable = val
+      const data = {
+        button_id: id,
+        is_enable: val
+      }
       const text = val ? '不可用' : '可用'
       this.$confirm('确定更改为' + text + '吗?', '提示', {
         confirmButtonText: '确定',
@@ -175,7 +179,7 @@ export default {
       }).then(() => {
         updateSystemButtonEnable(data).then(res => {
           Message.success(res.msg)
-          this.dataBlock(res)
+          this.reload()
         })
       }).catch(() => {})
     },
@@ -193,14 +197,14 @@ export default {
             createSystemButton(this.buttonForm).then(res => {
               this.dialogVisible = false
               Message.success(res.msg)
-              this.dataBlock(res)
+              this.reload()
             })
           } else {
             this.buttonForm.button_id = this.buttonId
             updateSystemButton(this.buttonForm).then(res => {
               this.dialogVisible = false
               Message.success(res.msg)
-              this.dataBlock(res)
+              this.reload()
             })
           }
         } else {
@@ -227,7 +231,7 @@ export default {
       }).then(() => {
         deleteSystemButton({ button_id: buttonId }).then(res => {
           Message.success(res.msg)
-          this.dataBlock(res)
+          this.reload()
         })
       }).catch(() => {})
     }

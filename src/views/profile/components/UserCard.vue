@@ -65,7 +65,7 @@ export default {
       button: {
         profile_upload_avatar: 'profile_upload_avatar'
       },
-      action: 'http://vueadmin-api.bigfool.cn/user/upload-avatar',
+      action: '/api/user/upload-avatar',
       headers: {
         'Access-Token': this.token
       },

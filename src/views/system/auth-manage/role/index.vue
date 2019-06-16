@@ -90,6 +90,7 @@ export default {
       })
     },
     handleSizeChange(val) {
+      this.listQuery.page = 1
       this.listQuery.row = val
       this.initData(this.listQuery)
     },
@@ -98,6 +99,7 @@ export default {
       this.initData(this.listQuery)
     },
     handleFilter() {
+      this.listQuery.page = 1
       this.initData(this.listQuery)
     },
     handleCreate() {
@@ -117,9 +119,7 @@ export default {
       }).then(() => {
         const data = {
           role_id: id,
-          type: 1,
-          page: this.listQuery.page,
-          row: this.listQuery.row
+          type: 1
         }
         deleteRole(data).then(res => {
           Message.success(res.msg)
