@@ -99,85 +99,85 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
-    path: '/system',
-    component: Layout,
-    redirect: 'noRedirect',
-    name: 'System',
-    alwaysShow: true,
-    meta: { title: '系统管理', icon: 'system' },
-    children: [
-      {
-        path: 'router',
-        name: 'Router',
-        component: () => import('@/views/system/router'),
-        meta: { title: '路由管理' }
-      },
-      {
-        path: 'button',
-        name: 'Button',
-        component: () => import('@/views/system/button'),
-        meta: { title: '按钮管理' }
-      },
-      {
-        path: '/system/user-manage',
-        component: () => import('@/views/system/user-manage'),
-        redirect: 'noRedirect',
-        name: 'UserManage',
-        alwaysShow: true,
-        meta: { title: '用户管理' },
-        children: [
-          {
-            path: 'adminuser',
-            name: 'AdminUser',
-            component: () => import('@/views/system/user-manage/adminuser'),
-            meta: { title: '管理员' }
-          },
-          {
-            path: 'adminuser/add',
-            name: 'AdminUserAdd',
-            component: () => import('@/views/system//user-manage/adminuser/add'),
-            hidden: true,
-            meta: { title: '管理员--新增' }
-          }
-        ]
-      },
-      {
-        path: 'auth-manage',
-        name: 'AuthManage',
-        component: () => import('@/views/system/auth-manage'),
-        alwaysShow: true,
-        redirect: 'noRedirect',
-        meta: { title: '权限管理' },
-        children: [
-          {
-            path: 'role',
-            name: 'Role',
-            component: () => import('@/views/system/auth-manage/role'),
-            meta: { title: '角色管理' }
-          },
-          {
-            path: 'role/add',
-            name: 'RoleAdd',
-            component: () => import('@/views/system/auth-manage/role/add'),
-            hidden: true,
-            meta: { title: '角色管理--新增' }
-          },
-          {
-            path: 'role/edit',
-            name: 'RoleEdit',
-            component: () => import('@/views/system/auth-manage/role/edit'),
-            hidden: true,
-            meta: { title: '角色管理-修改' }
-          },
-          {
-            path: 'auth',
-            name: 'Auth',
-            component: () => import('@/views/system/auth-manage/auth'),
-            meta: { title: '权限列表' }
-          }
-        ]
-      }
-    ]
+  //   path: '/system',
+  //   component: Layout,
+  //   redirect: 'noRedirect',
+  //   name: 'System',
+  //   alwaysShow: true,
+  //   meta: { title: '系统管理', icon: 'system' },
+  //   children: [
+  //     {
+  //       path: 'router',
+  //       name: 'Router',
+  //       component: () => import('@/views/system/router'),
+  //       meta: { title: '路由管理' }
+  //     },
+  //     {
+  //       path: 'button',
+  //       name: 'Button',
+  //       component: () => import('@/views/system/button'),
+  //       meta: { title: '按钮管理' }
+  //     },
+  //     {
+  //       path: '/system/user-manage',
+  //       component: () => import('@/views/system/user-manage'),
+  //       redirect: 'noRedirect',
+  //       name: 'UserManage',
+  //       alwaysShow: true,
+  //       meta: { title: '用户管理' },
+  //       children: [
+  //         {
+  //           path: 'adminuser',
+  //           name: 'AdminUser',
+  //           component: () => import('@/views/system/user-manage/adminuser'),
+  //           meta: { title: '管理员' }
+  //         },
+  //         {
+  //           path: 'adminuser/add',
+  //           name: 'AdminUserAdd',
+  //           component: () => import('@/views/system//user-manage/adminuser/add'),
+  //           hidden: true,
+  //           meta: { title: '管理员--新增' }
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       path: 'auth-manage',
+  //       name: 'AuthManage',
+  //       component: () => import('@/views/system/auth-manage'),
+  //       alwaysShow: true,
+  //       redirect: 'noRedirect',
+  //       meta: { title: '权限管理' },
+  //       children: [
+  //         {
+  //           path: 'role',
+  //           name: 'Role',
+  //           component: () => import('@/views/system/auth-manage/role'),
+  //           meta: { title: '角色管理' }
+  //         },
+  //         {
+  //           path: 'role/add',
+  //           name: 'RoleAdd',
+  //           component: () => import('@/views/system/auth-manage/role/add'),
+  //           hidden: true,
+  //           meta: { title: '角色管理--新增' }
+  //         },
+  //         {
+  //           path: 'role/edit',
+  //           name: 'RoleEdit',
+  //           component: () => import('@/views/system/auth-manage/role/edit'),
+  //           hidden: true,
+  //           meta: { title: '角色管理-修改' }
+  //         },
+  //         {
+  //           path: 'auth',
+  //           name: 'Auth',
+  //           component: () => import('@/views/system/auth-manage/auth'),
+  //           meta: { title: '权限列表' }
+  //         }
+  //       ]
+  //     }
+  //   ]
   }
 ]
 export const errorRoutes = [
@@ -186,7 +186,7 @@ export const errorRoutes = [
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })

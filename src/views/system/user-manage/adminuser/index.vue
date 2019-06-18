@@ -55,7 +55,7 @@
       <el-table-column align="center" prop="login_time" label="最后登录时间" width="160" />
       <el-table-column align="center" label="操作" width="300px">
         <template slot-scope="scope">
-          <el-button v-loading="isLoading" :type="scope.row.is_active ? 'info' : 'warning'" size="mini" @click="changeActive(scope.row.admin_user_id, scope.row.is_active)">
+          <el-button v-permission="button.adminuser_active" v-loading="isLoading" :type="scope.row.is_active ? 'info' : 'warning'" size="mini" @click="changeActive(scope.row.admin_user_id, scope.row.is_active)">
             {{ scope.row.is_active ? '禁用' : '激活' }}
           </el-button>
           <el-button v-permission="button.adminuser_role" v-loading="isLoading" type="success" size="mini" @click="handleRole(scope.row.admin_user_id, scope.row.roles)">分配角色</el-button>
@@ -158,6 +158,7 @@ export default {
     return {
       button: {
         adminuser_add: 'adminuser_add',
+        adminuser_active: 'adminuser_active',
         adminuser_edit_pwd: 'adminuser_edit_pwd',
         adminuser_role: 'adminuser_role',
         adminuser_export: 'adminuser_export',
