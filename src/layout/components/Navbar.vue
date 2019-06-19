@@ -26,7 +26,7 @@
           <router-link to="/profile/index">
             <el-dropdown-item>个人信息</el-dropdown-item>
           </router-link>
-          <el-dropdown-item>
+          <el-dropdown-item v-show="false">
             <span style="display:block;" @click="handlePassword">修改密码</span>
           </el-dropdown-item>
           <el-dropdown-item divided>

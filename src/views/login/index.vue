@@ -45,6 +45,7 @@
         </el-form-item>
       </el-tooltip>
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
+      <div style="color: #fff"><span>账号：bigfool</span><span style="float: right">密码：bigfool.cn</span></div>
     </el-form>
   </div>
 </template>

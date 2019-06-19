@@ -14,11 +14,14 @@
 
 ## 简介
 
-[vue-element-admin-sample](http://vea.bigfool.cn) 是一个后台前端解决方案，它基于 [vue](https://github.com/vuejs/vue) 和 [element-ui](https://github.com/ElemeFE/element)实现。它使用了最新的前端技术栈，动态路由，权限验证，角色管理，按钮控制等，提炼了典型的业务模型，提供了丰富的功能组件，它可以帮助你快速搭建企业级中后台产品原型。相信不管你的需求是什么，本项目都能帮助到你。
+[vue-element-admin-simple](http://vea.bigfool.cn) 是一个后台前端解决方案，它基于 [vue](https://github.com/vuejs/vue) 和 [element-ui](https://github.com/ElemeFE/element)实现。它使用了最新的前端技术栈，动态路由，权限验证，角色管理，按钮控制等，提炼了典型的业务模型，提供了丰富的功能组件，它可以帮助你快速搭建企业级中后台产品原型。相信不管你的需求是什么，本项目都能帮助到你。
 
 - [在线预览](http://vea.bigfool.cn)
 
+## 后台接口
+Laravel5.7版本：[vue-element-admin-simple-laravel](https://github.com/bigfool-cn/vue-element-admin-simple-laravel)
 
+ThinkPHP5.1版本：[vue-element-admin-simple-thinkphp](https://github.com/bigfool-cn/vue-element-admin-simple-thinkphp)
 ## 功能
 
 ```
